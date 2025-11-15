@@ -36,6 +36,47 @@
         </div>
     </div>
 
+    <!-- نافذة التواصل (مودال) -->
+    <div id="contactModal"
+         class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 px-4">
+        <div class="bg-white rounded-2xl w-full max-w-md p-5 sm:p-6 shadow-2xl">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-lg sm:text-xl font-bold text-gray-800">
+                    ✅ تم إرسال بياناتك
+                </h3>
+                <button type="button"
+                        onclick="closeContactModal()"
+                        class="text-gray-400 hover:text-gray-600 text-xl leading-none">
+                    ✕
+                </button>
+            </div>
+
+            <p class="text-sm sm:text-base text-gray-700 mb-3">
+                سنتواصل معك قريباً على رقم الجوال الذي قمت بإدخاله:
+            </p>
+
+            <div class="bg-indigo-50 border border-indigo-200 rounded-xl px-3 py-2 mb-4">
+                <p class="text-xs text-gray-500 mb-1">رقم الجوال المسجل</p>
+                <p id="contactUserPhone" class="font-semibold text-indigo-700 text-base sm:text-lg">
+                    05xxxxxxxx
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <a href="tel:0501492435"
+                   class="block w-full text-center bg-gradient-to-r from-green-600 to-emerald-600 text-white py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-md">
+                    📞 الاتصال المباشر على 0501492435
+                </a>
+
+                <button type="button"
+                        onclick="closeContactModal()"
+                        class="w-full border border-gray-300 text-gray-700 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold hover:bg-gray-50 transition-all">
+                    إغلاق
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="container mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6">
         
         <!-- Page 1: Personal Info -->
@@ -253,7 +294,7 @@
                     لمعرفة تفاصيل التحسين أو طلب استشارة مجانية لاستخراج شهادة مواءمة
                 </p>
                 <button onclick="contactUs()"
-                    class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
+                    class="bg-gradient-to-r from-green-600 إلى-emerald-600 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
                     📞 اضغط هنا للتواصل (0501492435)
                 </button>
             </div>
@@ -277,7 +318,6 @@
 
             msg.textContent = message;
 
-            // نوع الإشعار
             if (type === 'success') {
                 toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-green-600 text-white";
                 icon.textContent = '✅';
@@ -290,7 +330,6 @@
             }
 
             wrapper.classList.remove('hidden');
-            wrapper.classList.add('opacity-100');
 
             if (toastTimeout) clearTimeout(toastTimeout);
             toastTimeout = setTimeout(hideToast, 3000);
@@ -301,8 +340,7 @@
             wrapper.classList.add('hidden');
         }
 
-        // ===== Survey Logic =====
-
+        // ===== بيانات الاستبيان =====
         var sections = [
             { title: "أولاً: البنية التحتية", items: [
                 "هل الممرات والمنحدرات في المنشأة مناسبة وسهلة الوصول؟",
@@ -353,7 +391,6 @@
             var emailInput = document.getElementById('email');
             var phoneInput = document.getElementById('phone');
 
-            // إعادة ضبط الأخطاء
             infoError.classList.add('hidden');
             emailError.classList.add('hidden');
             phoneError.classList.add('hidden');
@@ -390,7 +427,6 @@
                 return;
             }
 
-            // إذا كل شيء سليم
             userInfo = { name, email, phone, region, size };
 
             document.getElementById('infoPage').classList.add('hidden');
@@ -725,7 +761,22 @@
         }
 
         function contactUs() {
-            alert('✅ تم إرسال بياناتك!\n\nسنتواصل معك قريباً على رقم: ' + userInfo.phone + '\n\nللتواصل المباشر:\n📞 0501492435');
+            var phoneText = document.getElementById('contactUserPhone');
+            if (userInfo && userInfo.phone) {
+                phoneText.textContent = userInfo.phone;
+            } else {
+                phoneText.textContent = 'لم يتم إدخال رقم جوال';
+            }
+
+            var modal = document.getElementById('contactModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeContactModal() {
+            var modal = document.getElementById('contactModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
         function resetSurvey() {

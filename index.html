@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <!-- مهم جداً للجوال -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>استبيان مواءمة المنشآت - تمهير</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         (function() {
-            // ضع المفتاح العام من EmailJS هنا
             emailjs.init("FBtLPMoiYjdHUSr4J");
         })();
     </script>
@@ -26,38 +26,54 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-    <div class="container mx-auto p-6 max-w-4xl">
+    <!-- حاوية متجاوبة للجوال -->
+    <div class="container mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6">
         
         <!-- Page 1: Personal Info -->
-        <div id="infoPage" class="bg-white rounded-2xl shadow-2xl p-8">
-            <div class="text-center mb-8">
-                <div class="mb-6">
-                    <div class="mx-auto w-60 h-40 rounded-lg bg-[url('https://tamheer.sa/assets/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
+        <div id="infoPage" class="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+            <div class="text-center mb-6 sm:mb-8">
+                <div class="mb-4 sm:mb-6">
+                    <!-- تصغير الشعار على الجوال -->
+                    <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://tamheer.sa/assets/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
                 </div>
-                <h1 class="text-4xl font-bold mb-4 text-gray-800">🟢 استبيان مواءمة المنشآت</h1>
-                <p class="text-xl text-gray-600">قيّم جاهزية منشأتك في دقيقتين</p>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
+                    🟢 استبيان مواءمة المنشآت
+                </h1>
+                <p class="text-base sm:text-lg text-gray-600">قيّم جاهزية منشأتك في دقيقتين</p>
             </div>
 
-            <div class="space-y-6">
+            <div class="space-y-4 sm:space-y-6">
                 <div>
-                    <label class="block text-lg font-semibold text-gray-700 mb-2">اسم المنشأة <span class="text-red-500">*</span></label>
-                    <input type="text" id="facilityName" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none">
+                    <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
+                        اسم المنشأة <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" id="facilityName" required
+                        class="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none text-sm sm:text-base">
                 </div>
 
                 <div>
-                    <label class="block text-lg font-semibold text-gray-700 mb-2">البريد الإلكتروني <span class="text-red-500">*</span></label>
-                    <input type="email" id="email" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none">
+                    <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
+                        البريد الإلكتروني <span class="text-red-500">*</span>
+                    </label>
+                    <input type="email" id="email" required
+                        class="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none text-sm sm:text-base">
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-4">
+                <div class="grid gap-4 md:grid-cols-2">
                     <div>
-                        <label class="block text-lg font-semibold text-gray-700 mb-2">رقم الجوال <span class="text-red-500">*</span></label>
-                        <input type="tel" id="phone" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="05xxxxxxxx">
+                        <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
+                            رقم الجوال <span class="text-red-500">*</span>
+                        </label>
+                        <input type="tel" id="phone" required placeholder="05xxxxxxxx"
+                            class="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none text-sm sm:text-base">
                     </div>
 
                     <div>
-                        <label class="block text-lg font-semibold text-gray-700 mb-2">المنطقة <span class="text-red-500">*</span></label>
-                        <select id="region" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
+                            المنطقة <span class="text-red-500">*</span>
+                        </label>
+                        <select id="region" required
+                            class="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none text-sm sm:text-base">
                             <option value="">اختر المنطقة</option>
                             <option value="الرياض">الرياض</option>
                             <option value="مكة المكرمة">مكة المكرمة</option>
@@ -77,8 +93,11 @@
                 </div>
 
                 <div>
-                    <label class="block text-lg font-semibold text-gray-700 mb-2">حجم المنشأة <span class="text-red-500">*</span></label>
-                    <select id="facilitySize" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none">
+                    <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
+                        حجم المنشأة <span class="text-red-500">*</span>
+                    </label>
+                    <select id="facilitySize" required
+                        class="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none text-sm sm:text-base">
                         <option value="">اختر حجم المنشأة</option>
                         <option value="ضخمة">ضخمة</option>
                         <option value="كبرى">كبرى</option>
@@ -87,52 +106,73 @@
                     </select>
                 </div>
 
-                <div id="infoError" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
+                <div id="infoError"
+                    class="hidden bg-red-100 border border-red-400 text-red-700 px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg text-sm sm:text-base">
                     يرجى تعبئة جميع الحقول المطلوبة
                 </div>
 
-                <button onclick="validateAndProceed()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
+                <button onclick="validateAndProceed()"
+                    class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3.5 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
                     التالي ➡️
                 </button>
             </div>
         </div>
 
         <!-- Page 2: Survey -->
-        <div id="surveyPage" class="hidden bg-white rounded-2xl shadow-2xl p-8">
-            <div class="text-center mb-8">
-                <h1 class="text-4xl font-bold mb-4 text-gray-800">🟢 هل منشأتك مواءمة؟</h1>
-                <p class="text-xl text-gray-600">يرجى اختيار الإجابات التي تعكس وضع منشأتكم الحالي بدقة</p>
-                <p class="text-sm text-gray-500 mt-2">3 = نعم، 2 = جزئيًا، 1 = لا</p>
+        <div id="surveyPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+            <div class="text-center mb-6 sm:mb-8">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
+                    🟢 هل منشأتك مواءمة؟
+                </h1>
+                <p class="text-base sm:text-lg text-gray-600">
+                    يرجى اختيار الإجابات التي تعكس وضع منشأتكم الحالي بدقة
+                </p>
+                <p class="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-2">
+                    3 = نعم، 2 = جزئيًا، 1 = لا
+                </p>
             </div>
 
             <div id="questionsContainer"></div>
 
-            <div class="sticky bottom-4 bg-white rounded-xl p-4 shadow-xl border-2 border-indigo-200 mt-6">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-lg font-semibold text-gray-700">التقدم: <span id="progressText">0 / 11</span></span>
-                    <span class="text-lg font-semibold text-indigo-600"><span id="progressPercent">0</span>%</span>
+            <!-- شريط التقدم مثبت في الأسفل ومتجاوب -->
+            <div
+                class="sticky bottom-0 sm:bottom-4 bg-white rounded-xl p-3 sm:p-4 shadow-xl border-t sm:border-2 sm:border-indigo-200 mt-4 sm:mt-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2 sm:mb-3">
+                    <span class="text-sm sm:text-lg font-semibold text-gray-700">
+                        التقدم: <span id="progressText">0 / 11</span>
+                    </span>
+                    <span class="text-sm sm:text-lg font-semibold text-indigo-600">
+                        <span id="progressPercent">0</span>%
+                    </span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
-                    <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all" style="width: 0%"></div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 sm:h-3 mb-3 sm:mb-4">
+                    <div id="progressBar"
+                        class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2.5 sm:h-3 rounded-full transition-all"
+                        style="width: 0%"></div>
                 </div>
                 
-                <button id="incompleteBtn" class="w-full py-4 rounded-xl text-lg font-bold transition-all bg-gray-300 text-gray-500 cursor-not-allowed">
+                <button id="incompleteBtn"
+                    class="w-full py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-bold transition-all bg-gray-300 text-gray-500 cursor-not-allowed">
                     ⚠️ يرجى إكمال جميع الأسئلة
                 </button>
                 
                 <div id="sendBtns" class="hidden mt-2">
-                    <button onclick="sendEmailWithResults()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
+                    <button onclick="sendEmailWithResults()"
+                        class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
                         📧 إرسال النتائج بالبريد
                     </button>
                 </div>
                 
                 <div id="thankYouMessage" class="hidden">
-                    <div class="bg-green-100 border-2 border-green-400 rounded-xl p-6 mb-4 text-center">
-                        <div class="text-5xl mb-3">✅</div>
-                        <h3 class="text-2xl font-bold text-green-800 mb-2">تم إرسال بياناتك بنجاح!</h3>
-                        <p class="text-lg text-green-700">شكراً لمشاركتك، سنتواصل معك قريباً</p>
+                    <div class="bg-green-100 border-2 border-green-400 rounded-xl p-4 sm:p-6 mb-3 sm:mb-4 text-center">
+                        <div class="text-3xl sm:text-5xl mb-2 sm:mb-3">✅</div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-green-800 mb-1 sm:mb-2">
+                            تم إرسال بياناتك بنجاح!
+                        </h3>
+                        <p class="text-sm sm:text-lg text-green-700">شكراً لمشاركتك، سنتواصل معك قريباً</p>
                     </div>
-                    <button onclick="showResults()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
+                    <button onclick="showResults()"
+                        class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
                         📊 عرض النتائج التفصيلية
                     </button>
                 </div>
@@ -140,49 +180,72 @@
         </div>
 
         <!-- Page 3: Results -->
-        <div id="resultsPage" class="hidden bg-white rounded-2xl shadow-2xl p-8">
-            <h1 class="text-4xl font-bold text-center mb-6 text-gray-800">🎯 نتائج استبيان المواءمة</h1>
+        <div id="resultsPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 text-gray-800">
+                🎯 نتائج استبيان المواءمة
+            </h1>
             
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
-                    <h3 class="text-xl font-semibold mb-2">النتيجة الإجمالية</h3>
-                    <div class="text-5xl font-bold mb-2"><span id="totalScore">0</span> / 33</div>
-                    <div class="text-2xl"><span id="totalPercent">0</span>%</div>
+            <div class="grid gap-4 sm:gap-6 md:grid-cols-2 mb-6 sm:mb-8">
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-4 sm:p-6 text-white">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2">النتيجة الإجمالية</h3>
+                    <div class="text-3xl sm:text-5xl font-bold mb-1.5 sm:mb-2">
+                        <span id="totalScore">0</span> / 33
+                    </div>
+                    <div class="text-xl sm:text-2xl">
+                        <span id="totalPercent">0</span>%
+                    </div>
                 </div>
                 
-                <div id="levelCard" class="rounded-xl p-6 text-white">
-                    <h3 class="text-xl font-semibold mb-2">تقييم المنشأة</h3>
-                    <div class="text-3xl font-bold mb-2"><span id="levelEmoji"></span></div>
-                    <div class="text-xl"><span id="levelText"></span></div>
+                <div id="levelCard" class="rounded-xl p-4 sm:p-6 text-white">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2">تقييم المنشأة</h3>
+                    <div class="text-2xl sm:text-3xl font-bold mb-1.5 sm:mb-2">
+                        <span id="levelEmoji"></span>
+                    </div>
+                    <div class="text-lg sm:text-xl">
+                        <span id="levelText"></span>
+                    </div>
                 </div>
             </div>
 
-            <div class="mb-8">
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">📊 الأداء التفاعلي حسب الأقسام</h3>
-                <p class="text-sm text-gray-600 mb-4">الألوان تعكس مستوى الأداء: 🟢 ممتاز (80%+) | 🟡 جيد (50-79%) | 🔴 يحتاج تحسين (أقل من 50%)</p>
-                <canvas id="barChart" height="100"></canvas>
+            <div class="mb-6 sm:mb-8">
+                <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-gray-800">📊 الأداء التفاعلي حسب الأقسام</h3>
+                <p class="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+                    الألوان تعكس مستوى الأداء: 🟢 ممتاز (80%+) | 🟡 جيد (50-79%) | 🔴 يحتاج تحسين (أقل من 50%)
+                </p>
+                <!-- جعل الرسم البياني داخل حاوية بارتفاع ثابت ومتجاوب -->
+                <div class="relative h-64 sm:h-80">
+                    <canvas id="barChart"></canvas>
+                </div>
             </div>
 
-            <div class="mb-8">
-                <h3 class="text-2xl font-bold mb-4 text-gray-800">🕸️ خريطة الأداء الرادارية</h3>
-                <p class="text-sm text-gray-600 mb-4">كلما اتسعت المساحة، كان أداء المنشأة أفضل</p>
-                <canvas id="radarChart" height="100"></canvas>
+            <div class="mb-6 sm:mb-8">
+                <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-gray-800">🕸️ خريطة الأداء الرادارية</h3>
+                <p class="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+                    كلما اتسعت المساحة، كان أداء المنشأة أفضل
+                </p>
+                <div class="relative h-64 sm:h-80">
+                    <canvas id="radarChart"></canvas>
+                </div>
             </div>
 
-            <div class="bg-blue-50 rounded-xl p-6 mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">📋 تفصيل النقاط حسب القسم</h3>
-                <div id="sectionDetails" class="grid md:grid-cols-2 gap-4"></div>
+            <div class="bg-blue-50 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
+                <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-800">📋 تفصيل النقاط حسب القسم</h3>
+                <div id="sectionDetails" class="grid gap-3 sm:gap-4 md:grid-cols-2"></div>
             </div>
 
-            <div class="bg-green-50 border-2 border-green-400 rounded-xl p-6 mb-6 text-center">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">✨ شكراً لمشاركتك!</h3>
-                <p class="text-lg text-gray-700 mb-4">لمعرفة تفاصيل التحسين أو طلب استشارة مجانية لاستخراج شهادة مواءمة</p>
-                <button onclick="contactUs()" class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-8 rounded-xl text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
+            <div class="bg-green-50 border-2 border-green-400 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 text-center">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">✨ شكراً لمشاركتك!</h3>
+                <p class="text-sm sm:text-lg text-gray-700 mb-3 sm:mb-4">
+                    لمعرفة تفاصيل التحسين أو طلب استشارة مجانية لاستخراج شهادة مواءمة
+                </p>
+                <button onclick="contactUs()"
+                    class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
                     📞 اضغط هنا للتواصل (0501492435)
                 </button>
             </div>
 
-            <button onclick="resetSurvey()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
+            <button onclick="resetSurvey()"
+                class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
                 🔄 إعادة الاستبيان
             </button>
         </div>
@@ -257,25 +320,26 @@
             for (var sIdx = 0; sIdx < sections.length; sIdx++) {
                 var section = sections[sIdx];
                 var sectionDiv = document.createElement('div');
-                sectionDiv.className = 'mb-8 bg-gray-50 rounded-xl p-6 section-card';
+                sectionDiv.className = 'mb-6 sm:mb-8 bg-gray-50 rounded-xl p-4 sm:p-6 section-card';
                 
                 var title = document.createElement('h2');
-                title.className = 'text-2xl font-bold mb-4 text-indigo-700 border-b-2 border-indigo-200 pb-2';
+                title.className = 'text-lg sm:text-2xl font-bold mb-3 sm:mb-4 text-indigo-700 border-b-2 border-indigo-200 pb-1.5 sm:pb-2';
                 title.textContent = section.title;
                 sectionDiv.appendChild(title);
 
                 for (var iIdx = 0; iIdx < section.items.length; iIdx++) {
                     var item = section.items[iIdx];
                     var itemDiv = document.createElement('div');
-                    itemDiv.className = 'mb-4 bg-white rounded-lg p-4 shadow-sm';
+                    itemDiv.className = 'mb-3 sm:mb-4 bg-white rounded-lg p-3 sm:p-4 shadow-sm';
                     
                     var itemText = document.createElement('p');
-                    itemText.className = 'font-semibold text-gray-700 mb-3';
+                    itemText.className = 'font-semibold text-sm sm:text-base text-gray-700 mb-2.5 sm:mb-3';
                     itemText.textContent = item;
                     itemDiv.appendChild(itemText);
 
                     var buttonsDiv = document.createElement('div');
-                    buttonsDiv.className = 'flex gap-4 justify-center';
+                    // أزرار عمودية على الجوال، أفقية على الشاشات الأكبر
+                    buttonsDiv.className = 'flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center';
 
                     var options = [
                         { value: 3, label: 'نعم ✅', color: 'bg-green-500 hover:bg-green-600' },
@@ -286,7 +350,7 @@
                     for (var j = 0; j < options.length; j++) {
                         var option = options[j];
                         var btn = document.createElement('button');
-                        btn.className = 'option-btn flex-1 py-3 px-4 rounded-lg text-white font-semibold transition-all bg-gray-300 hover:bg-gray-400';
+                        btn.className = 'option-btn flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-white text-sm sm:text-base font-semibold transition-all bg-gray-300 hover:bg-gray-400';
                         btn.textContent = option.label;
                         btn.dataset.sectionIdx = sIdx;
                         btn.dataset.itemIdx = iIdx;
@@ -312,10 +376,10 @@
 
             var allButtons = document.querySelectorAll('[data-section-idx="' + sIdx + '"][data-item-idx="' + iIdx + '"]');
             for (var i = 0; i < allButtons.length; i++) {
-                allButtons[i].className = 'option-btn flex-1 py-3 px-4 rounded-lg text-white font-semibold transition-all bg-gray-300 hover:bg-gray-400';
+                allButtons[i].className = 'option-btn flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-white text-sm sm:text-base font-semibold transition-all bg-gray-300 hover:bg-gray-400';
             }
 
-            clickedBtn.className = 'option-btn selected flex-1 py-3 px-4 rounded-lg text-white font-semibold transition-all ' + color + ' ring-4 ring-offset-2 ring-indigo-300';
+            clickedBtn.className = 'option-btn selected flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-white text-sm sm:text-base font-semibold transition-all ' + color + ' ring-4 ring-offset-2 ring-indigo-300';
 
             updateProgress();
         }
@@ -445,11 +509,15 @@
             for (var i = 0; i < results.sectionScores.length; i++) {
                 var section = results.sectionScores[i];
                 var statusEmoji = section.percentage >= 80 ? '🟢' : section.percentage >= 50 ? '🟡' : '🔴';
-                detailsDiv.innerHTML += '<div class="bg-white rounded-lg p-4 shadow"><h4 class="font-semibold text-gray-800 mb-2">' + section.name + '</h4><div class="flex justify-between items-center"><span class="text-2xl font-bold text-indigo-600">' + section.score + ' / ' + section.max + '</span><span class="text-lg font-semibold text-gray-600">' + section.percentage + '% ' + statusEmoji + '</span></div><div class="w-full bg-gray-200 rounded-full h-2 mt-2"><div class="h-2 rounded-full transition-all" style="width: ' + section.percentage + '%; background-color: ' + section.color + '"></div></div></div>';
+                detailsDiv.innerHTML += '<div class="bg-white rounded-lg p-3 sm:p-4 shadow"><h4 class="font-semibold text-sm sm:text-base text-gray-800 mb-1.5 sm:mb-2">'
+                    + section.name + '</h4><div class="flex justify-between items-center"><span class="text-xl sm:text-2xl font-bold text-indigo-600">'
+                    + section.score + ' / ' + section.max + '</span><span class="text-sm sm:text-lg font-semibold text-gray-600">'
+                    + section.percentage + '% ' + statusEmoji + '</span></div><div class="w-full bg-gray-200 rounded-full h-1.5 sm:h-2 mt-1.5 sm:mt-2"><div class="h-1.5 sm:h-2 rounded-full transition-all" style="width: '
+                    + section.percentage + '%; background-color: ' + section.color + '"></div></div></div>';
             }
 
             if (barChartInstance) barChartInstance.destroy();
-            if (radarChartInstance) barChartInstance = null;
+            if (radarChartInstance) radarChartInstance.destroy();
 
             var barLabels = [];
             var barScores = [];
@@ -482,7 +550,7 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: false,
                     scales: {
                         y: { beginAtZero: true }
                     }
@@ -512,13 +580,13 @@
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',
                         pointHoverBorderColor: radarPointColors,
-                        pointRadius: 6,
-                        pointHoverRadius: 8
+                        pointRadius: 4,
+                        pointHoverRadius: 6
                     }]
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: false,
                     scales: {
                         r: { beginAtZero: true, max: 100, ticks: { stepSize: 20 } }
                     }
@@ -529,39 +597,36 @@
         }
 
         // الإرسال عبر EmailJS
-		
-function sendEmailWithResults() {
-    var results = calculateResults();
-    var body = buildSurveyText(results);
+        function sendEmailWithResults() {
+            var results = calculateResults();
+            var body = buildSurveyText(results);
 
-    var sendBtns = document.getElementById('sendBtns');
-    sendBtns.classList.add('opacity-60');
+            var sendBtns = document.getElementById('sendBtns');
+            sendBtns.classList.add('opacity-60');
 
-    var templateParams = {
-        title: 'استبيان مواءمة المنشآت',
-        name: userInfo.name,
-        email: userInfo.email,
-        message: body,                  // النص الكامل (كما هو الآن)
-        total_score: results.totalScore + ' / ' + results.maxScore,
-        total_percent: results.percentage + '%',
-        level_text: results.level,
-        level_emoji: results.emoji
-    };
+            var templateParams = {
+                title: 'استبيان مواءمة المنشآت',
+                name: userInfo.name,
+                email: userInfo.email,
+                message: body,
+                total_score: results.totalScore + ' / ' + results.maxScore,
+                total_percent: results.percentage + '%',
+                level_text: results.level,
+                level_emoji: results.emoji
+            };
 
-    emailjs.send("service_v02rb8j", "template_tthd4br", templateParams)
-        .then(function(response) {
-            console.log("EmailJS SUCCESS!", response.status, response.text);
-            sendBtns.classList.add('hidden');
-            document.getElementById('thankYouMessage').classList.remove('hidden');
-            window.scrollTo(0, document.body.scrollHeight);
-        }, function(error) {
-            console.error("EmailJS FAILED...", error);
-            alert("حصل خطأ أثناء إرسال البريد عبر EmailJS.\n\nتفاصيل: " + (error.text || ''));
-            sendBtns.classList.remove('opacity-60');
-        });
-}
-
-	
+            emailjs.send("service_v02rb8j", "template_tthd4br", templateParams)
+                .then(function(response) {
+                    console.log("EmailJS SUCCESS!", response.status, response.text);
+                    sendBtns.classList.add('hidden');
+                    document.getElementById('thankYouMessage').classList.remove('hidden');
+                    window.scrollTo(0, document.body.scrollHeight);
+                }, function(error) {
+                    console.error("EmailJS FAILED...", error);
+                    alert("حصل خطأ أثناء إرسال البريد عبر EmailJS.\n\nتفاصيل: " + (error.text || ''));
+                    sendBtns.classList.remove('opacity-60');
+                });
+        }
 
         function contactUs() {
             alert('✅ تم إرسال بياناتك!\n\nسنتواصل معك قريباً على رقم: ' + userInfo.phone + '\n\nللتواصل المباشر:\n📞 0501492435');

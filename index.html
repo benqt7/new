@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان مواءمة المنشآت - تمهير</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        (function() {
+            // ضع المفتاح العام من EmailJS هنا
+            emailjs.init("FBtLPMoiYjdHUSr4J");
+        })();
+    </script>
+
+    <style>
+        * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .section-card { transition: all 0.3s ease; }
+        .section-card:hover { transform: translateY(-2px); }
+        .option-btn { transition: all 0.2s ease; }
+        .option-btn:hover { transform: scale(1.05); }
+        .option-btn.selected { transform: scale(1.08); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto p-6 max-w-4xl">
+        
+        <!-- Page 1: Personal Info -->
+        <div id="infoPage" class="bg-white rounded-2xl shadow-2xl p-8">
+            <div class="text-center mb-8">
+                <div class="mb-6">
+                    <div class="mx-auto w-60 h-40 rounded-lg bg-[url('https://tamheer.sa/assets/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
+                </div>
+                <h1 class="text-4xl font-bold mb-4 text-gray-800">🟢 استبيان مواءمة المنشآت</h1>
+                <p class="text-xl text-gray-600">قيّم جاهزية منشأتك في دقيقتين</p>
+            </div>
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-lg font-semibold text-gray-700 mb-2">اسم المنشأة <span class="text-red-500">*</span></label>
+                    <input type="text" id="facilityName" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-lg font-semibold text-gray-700 mb-2">البريد الإلكتروني <span class="text-red-500">*</span></label>
+                    <input type="email" id="email" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none">
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-lg font-semibold text-gray-700 mb-2">رقم الجوال <span class="text-red-500">*</span></label>
+                        <input type="tel" id="phone" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="05xxxxxxxx">
+                    </div>
+
+                    <div>
+                        <label class="block text-lg font-semibold text-gray-700 mb-2">المنطقة <span class="text-red-500">*</span></label>
+                        <select id="region" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none">
+                            <option value="">اختر المنطقة</option>
+                            <option value="الرياض">الرياض</option>
+                            <option value="مكة المكرمة">مكة المكرمة</option>
+                            <option value="المدينة المنورة">المدينة المنورة</option>
+                            <option value="الشرقية">الشرقية</option>
+                            <option value="عسير">عسير</option>
+                            <option value="تبوك">تبوك</option>
+                            <option value="حائل">حائل</option>
+                            <option value="الحدود الشمالية">الحدود الشمالية</option>
+                            <option value="جازان">جازان</option>
+                            <option value="نجران">نجران</option>
+                            <option value="الباحة">الباحة</option>
+                            <option value="الجوف">الجوف</option>
+                            <option value="القصيم">القصيم</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-lg font-semibold text-gray-700 mb-2">حجم المنشأة <span class="text-red-500">*</span></label>
+                    <select id="facilitySize" required class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        <option value="">اختر حجم المنشأة</option>
+                        <option value="ضخمة">ضخمة</option>
+                        <option value="كبرى">كبرى</option>
+                        <option value="متوسطة">متوسطة</option>
+                        <option value="صغرى">صغرى</option>
+                    </select>
+                </div>
+
+                <div id="infoError" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
+                    يرجى تعبئة جميع الحقول المطلوبة
+                </div>
+
+                <button onclick="validateAndProceed()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
+                    التالي ➡️
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 2: Survey -->
+        <div id="surveyPage" class="hidden bg-white rounded-2xl shadow-2xl p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold mb-4 text-gray-800">🟢 هل منشأتك مواءمة؟</h1>
+                <p class="text-xl text-gray-600">يرجى اختيار الإجابات التي تعكس وضع منشأتكم الحالي بدقة</p>
+                <p class="text-sm text-gray-500 mt-2">3 = نعم، 2 = جزئيًا، 1 = لا</p>
+            </div>
+
+            <div id="questionsContainer"></div>
+
+            <div class="sticky bottom-4 bg-white rounded-xl p-4 shadow-xl border-2 border-indigo-200 mt-6">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-lg font-semibold text-gray-700">التقدم: <span id="progressText">0 / 11</span></span>
+                    <span class="text-lg font-semibold text-indigo-600"><span id="progressPercent">0</span>%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
+                    <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all" style="width: 0%"></div>
+                </div>
+                
+                <button id="incompleteBtn" class="w-full py-4 rounded-xl text-lg font-bold transition-all bg-gray-300 text-gray-500 cursor-not-allowed">
+                    ⚠️ يرجى إكمال جميع الأسئلة
+                </button>
+                
+                <div id="sendBtns" class="hidden mt-2">
+                    <button onclick="sendEmailWithResults()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
+                        📧 إرسال النتائج بالبريد
+                    </button>
+                </div>
+                
+                <div id="thankYouMessage" class="hidden">
+                    <div class="bg-green-100 border-2 border-green-400 rounded-xl p-6 mb-4 text-center">
+                        <div class="text-5xl mb-3">✅</div>
+                        <h3 class="text-2xl font-bold text-green-800 mb-2">تم إرسال بياناتك بنجاح!</h3>
+                        <p class="text-lg text-green-700">شكراً لمشاركتك، سنتواصل معك قريباً</p>
+                    </div>
+                    <button onclick="showResults()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
+                        📊 عرض النتائج التفصيلية
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Results -->
+        <div id="resultsPage" class="hidden bg-white rounded-2xl shadow-2xl p-8">
+            <h1 class="text-4xl font-bold text-center mb-6 text-gray-800">🎯 نتائج استبيان المواءمة</h1>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
+                    <h3 class="text-xl font-semibold mb-2">النتيجة الإجمالية</h3>
+                    <div class="text-5xl font-bold mb-2"><span id="totalScore">0</span> / 33</div>
+                    <div class="text-2xl"><span id="totalPercent">0</span>%</div>
+                </div>
+                
+                <div id="levelCard" class="rounded-xl p-6 text-white">
+                    <h3 class="text-xl font-semibold mb-2">تقييم المنشأة</h3>
+                    <div class="text-3xl font-bold mb-2"><span id="levelEmoji"></span></div>
+                    <div class="text-xl"><span id="levelText"></span></div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800">📊 الأداء التفاعلي حسب الأقسام</h3>
+                <p class="text-sm text-gray-600 mb-4">الألوان تعكس مستوى الأداء: 🟢 ممتاز (80%+) | 🟡 جيد (50-79%) | 🔴 يحتاج تحسين (أقل من 50%)</p>
+                <canvas id="barChart" height="100"></canvas>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold mb-4 text-gray-800">🕸️ خريطة الأداء الرادارية</h3>
+                <p class="text-sm text-gray-600 mb-4">كلما اتسعت المساحة، كان أداء المنشأة أفضل</p>
+                <canvas id="radarChart" height="100"></canvas>
+            </div>
+
+            <div class="bg-blue-50 rounded-xl p-6 mb-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">📋 تفصيل النقاط حسب القسم</h3>
+                <div id="sectionDetails" class="grid md:grid-cols-2 gap-4"></div>
+            </div>
+
+            <div class="bg-green-50 border-2 border-green-400 rounded-xl p-6 mb-6 text-center">
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">✨ شكراً لمشاركتك!</h3>
+                <p class="text-lg text-gray-700 mb-4">لمعرفة تفاصيل التحسين أو طلب استشارة مجانية لاستخراج شهادة مواءمة</p>
+                <button onclick="contactUs()" class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 px-8 rounded-xl text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
+                    📞 اضغط هنا للتواصل (0501492435)
+                </button>
+            </div>
+
+            <button onclick="resetSurvey()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
+                🔄 إعادة الاستبيان
+            </button>
+        </div>
+    </div>
+
+    <script>
+        var sections = [
+            { title: "أولاً: البنية التحتية", items: [
+                "هل الممرات والمنحدرات في المنشأة مناسبة وسهلة الوصول؟",
+                "هل توجد دورات مياه مهيأة لاستخدام الأشخاص ذوي الإعاقة؟",
+                "هل تتوفر مواقف مخصصة للأشخاص ذوي الإعاقة؟"
+            ]},
+            { title: "ثانيًا: بيئة العمل", items: [
+                "هل لدى المنشأة سياسات واضحة لدمج الأشخاص ذوي الإعاقة في بيئة العمل؟",
+                "هل توفر المنشأة أجهزة أو أدوات مساعدة لتيسير عمل الأشخاص ذوي الإعاقة؟"
+            ]},
+            { title: "رابعًا: الموارد البشرية", items: [
+                "هل لدى المنشأة موظفون من الأشخاص ذوي الإعاقة؟",
+                "هل حققت المنشأة نسبة التوظيف المطلوبة (موظف واحد من ذوي الإعاقة لكل 10 موظفين سعوديين)؟"
+            ]},
+            { title: "خامسًا: المعرفة والوعي", items: [
+                "هل يوجد في المنشأة ممثل أو مسؤول مختص بالمواءمة؟",
+                "هل توفر المنشأة فرص تطوير وترقية عادلة للأشخاص ذوي الإعاقة؟",
+                "هل يتم تدريب الموظفين على كيفية التعامل مع الأشخاص ذوي الإعاقة؟"
+            ]},
+            { title: "سادسًا: الاعتمادات", items: [
+                "هل سبق أن حصلت المنشأة على شهادة مواءمة؟",
+                "هل تعمل المنشأة حاليًا على استيفاء متطلبات الحصول على شهادة المواءمة؟"
+            ]}
+        ];
+
+        var userInfo = {};
+        var responses = {};
+        var totalItems = 0;
+        var barChartInstance = null;
+        var radarChartInstance = null;
+
+        for (var i = 0; i < sections.length; i++) {
+            totalItems += sections[i].items.length;
+        }
+
+        function validateAndProceed() {
+            var name = document.getElementById('facilityName').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+            var region = document.getElementById('region').value;
+            var size = document.getElementById('facilitySize').value;
+
+            if (!name || !email || !phone || !region || !size) {
+                document.getElementById('infoError').classList.remove('hidden');
+                return;
+            }
+
+            userInfo = { name, email, phone, region, size };
+
+            document.getElementById('infoPage').classList.add('hidden');
+            document.getElementById('surveyPage').classList.remove('hidden');
+            renderQuestions();
+            window.scrollTo(0, 0);
+        }
+
+        function getPerformanceColor(percentage) {
+            if (percentage >= 80) return '#10b981';
+            if (percentage >= 50) return '#f59e0b';
+            return '#ef4444';
+        }
+
+        function renderQuestions() {
+            var container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            for (var sIdx = 0; sIdx < sections.length; sIdx++) {
+                var section = sections[sIdx];
+                var sectionDiv = document.createElement('div');
+                sectionDiv.className = 'mb-8 bg-gray-50 rounded-xl p-6 section-card';
+                
+                var title = document.createElement('h2');
+                title.className = 'text-2xl font-bold mb-4 text-indigo-700 border-b-2 border-indigo-200 pb-2';
+                title.textContent = section.title;
+                sectionDiv.appendChild(title);
+
+                for (var iIdx = 0; iIdx < section.items.length; iIdx++) {
+                    var item = section.items[iIdx];
+                    var itemDiv = document.createElement('div');
+                    itemDiv.className = 'mb-4 bg-white rounded-lg p-4 shadow-sm';
+                    
+                    var itemText = document.createElement('p');
+                    itemText.className = 'font-semibold text-gray-700 mb-3';
+                    itemText.textContent = item;
+                    itemDiv.appendChild(itemText);
+
+                    var buttonsDiv = document.createElement('div');
+                    buttonsDiv.className = 'flex gap-4 justify-center';
+
+                    var options = [
+                        { value: 3, label: 'نعم ✅', color: 'bg-green-500 hover:bg-green-600' },
+                        { value: 2, label: 'جزئيًا ⚡', color: 'bg-yellow-500 hover:bg-yellow-600' },
+                        { value: 1, label: 'لا ❌', color: 'bg-red-500 hover:bg-red-600' }
+                    ];
+
+                    for (var j = 0; j < options.length; j++) {
+                        var option = options[j];
+                        var btn = document.createElement('button');
+                        btn.className = 'option-btn flex-1 py-3 px-4 rounded-lg text-white font-semibold transition-all bg-gray-300 hover:bg-gray-400';
+                        btn.textContent = option.label;
+                        btn.dataset.sectionIdx = sIdx;
+                        btn.dataset.itemIdx = iIdx;
+                        btn.onclick = (function(si, ii, val, col) {
+                            return function() {
+                                handleResponse(si, ii, val, col, this);
+                            };
+                        })(sIdx, iIdx, option.value, option.color);
+                        buttonsDiv.appendChild(btn);
+                    }
+
+                    itemDiv.appendChild(buttonsDiv);
+                    sectionDiv.appendChild(itemDiv);
+                }
+
+                container.appendChild(sectionDiv);
+            }
+        }
+
+        function handleResponse(sIdx, iIdx, value, color, clickedBtn) {
+            var key = sIdx + '-' + iIdx;
+            responses[key] = value;
+
+            var allButtons = document.querySelectorAll('[data-section-idx="' + sIdx + '"][data-item-idx="' + iIdx + '"]');
+            for (var i = 0; i < allButtons.length; i++) {
+                allButtons[i].className = 'option-btn flex-1 py-3 px-4 rounded-lg text-white font-semibold transition-all bg-gray-300 hover:bg-gray-400';
+            }
+
+            clickedBtn.className = 'option-btn selected flex-1 py-3 px-4 rounded-lg text-white font-semibold transition-all ' + color + ' ring-4 ring-offset-2 ring-indigo-300';
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            var count = Object.keys(responses).length;
+            var percent = Math.round((count / totalItems) * 100);
+            
+            document.getElementById('progressText').textContent = count + ' / ' + totalItems;
+            document.getElementById('progressPercent').textContent = percent;
+            document.getElementById('progressBar').style.width = percent + '%';
+
+            if (count === totalItems) {
+                document.getElementById('incompleteBtn').classList.add('hidden');
+                document.getElementById('sendBtns').classList.remove('hidden');
+            }
+        }
+
+        function calculateResults() {
+            var totalScore = 0;
+            var sectionScores = [];
+            
+            for (var sIdx = 0; sIdx < sections.length; sIdx++) {
+                var section = sections[sIdx];
+                var sectionScore = 0;
+                var sectionMax = section.items.length * 3;
+                
+                for (var iIdx = 0; iIdx < section.items.length; iIdx++) {
+                    var key = sIdx + '-' + iIdx;
+                    sectionScore += responses[key] || 0;
+                }
+                
+                totalScore += sectionScore;
+                var percentage = Math.round((sectionScore / sectionMax) * 100);
+                sectionScores.push({
+                    name: section.title,
+                    score: sectionScore,
+                    max: sectionMax,
+                    percentage: percentage,
+                    color: getPerformanceColor(percentage)
+                });
+            }
+
+            var maxScore = totalItems * 3;
+            var level, color, emoji;
+            
+            if (totalScore >= 25) {
+                level = "منشأة مواءمة بدرجة عالية";
+                color = "#3b82f6";
+                emoji = "👏";
+            } else if (totalScore >= 19) {
+                level = "منشأة في طريقها للمواءمة";
+                color = "#10b981";
+                emoji = "✅";
+            } else if (totalScore >= 11) {
+                level = "بحاجة إلى تطوير متوسط";
+                color = "#f59e0b";
+                emoji = "⚙️";
+            } else {
+                level = "تحتاج إلى خطة مواءمة عاجلة";
+                color = "#ef4444";
+                emoji = "⚠️";
+            }
+
+            return { 
+                totalScore: totalScore, 
+                maxScore: maxScore, 
+                percentage: Math.round((totalScore / maxScore) * 100), 
+                level: level, 
+                color: color, 
+                emoji: emoji, 
+                sectionScores: sectionScores 
+            };
+        }
+
+        function buildSurveyText(results) {
+            var text = '';
+
+            text += '📌 بيانات المنشأة:\n';
+            text += 'اسم المنشأة: ' + userInfo.name + '\n';
+            text += 'البريد الإلكتروني: ' + userInfo.email + '\n';
+            text += 'رقم الجوال: ' + userInfo.phone + '\n';
+            text += 'المنطقة: ' + userInfo.region + '\n';
+            text += 'حجم المنشأة: ' + userInfo.size + '\n\n';
+
+            text += '🎯 النتيجة الإجمالية:\n';
+            text += results.totalScore + ' من ' + results.maxScore + ' (' + results.percentage + '%)\n';
+            text += 'التقييم: ' + results.level + ' ' + results.emoji + '\n\n';
+
+            text += '📊 التفصيل حسب الأقسام:\n';
+
+            for (var sIdx = 0; sIdx < sections.length; sIdx++) {
+                var section = sections[sIdx];
+                text += '\n' + section.title + ':\n';
+
+                for (var iIdx = 0; iIdx < section.items.length; iIdx++) {
+                    var key = sIdx + '-' + iIdx;
+                    var value = responses[key];
+                    var valueText = '';
+
+                    if (value === 3) valueText = 'نعم ✅';
+                    else if (value === 2) valueText = 'جزئيًا ⚡';
+                    else if (value === 1) valueText = 'لا ❌';
+                    else valueText = 'لم يتم الإجابة';
+
+                    text += '- ' + section.items[iIdx] + ' → ' + valueText + '\n';
+                }
+            }
+
+            return text;
+        }
+
+        function showResults() {
+            var results = calculateResults();
+            
+            document.getElementById('surveyPage').classList.add('hidden');
+            document.getElementById('resultsPage').classList.remove('hidden');
+
+            document.getElementById('totalScore').textContent = results.totalScore;
+            document.getElementById('totalPercent').textContent = results.percentage;
+            document.getElementById('levelEmoji').textContent = results.emoji;
+            document.getElementById('levelText').textContent = results.level;
+            document.getElementById('levelCard').style.backgroundColor = results.color;
+
+            var detailsDiv = document.getElementById('sectionDetails');
+            detailsDiv.innerHTML = '';
+            for (var i = 0; i < results.sectionScores.length; i++) {
+                var section = results.sectionScores[i];
+                var statusEmoji = section.percentage >= 80 ? '🟢' : section.percentage >= 50 ? '🟡' : '🔴';
+                detailsDiv.innerHTML += '<div class="bg-white rounded-lg p-4 shadow"><h4 class="font-semibold text-gray-800 mb-2">' + section.name + '</h4><div class="flex justify-between items-center"><span class="text-2xl font-bold text-indigo-600">' + section.score + ' / ' + section.max + '</span><span class="text-lg font-semibold text-gray-600">' + section.percentage + '% ' + statusEmoji + '</span></div><div class="w-full bg-gray-200 rounded-full h-2 mt-2"><div class="h-2 rounded-full transition-all" style="width: ' + section.percentage + '%; background-color: ' + section.color + '"></div></div></div>';
+            }
+
+            if (barChartInstance) barChartInstance.destroy();
+            if (radarChartInstance) barChartInstance = null;
+
+            var barLabels = [];
+            var barScores = [];
+            var barMaxes = [];
+            var barColors = [];
+            for (var i = 0; i < results.sectionScores.length; i++) {
+                barLabels.push(results.sectionScores[i].name);
+                barScores.push(results.sectionScores[i].score);
+                barMaxes.push(results.sectionScores[i].max);
+                barColors.push(results.sectionScores[i].color);
+            }
+
+            barChartInstance = new Chart(document.getElementById('barChart'), {
+                type: 'bar',
+                data: {
+                    labels: barLabels,
+                    datasets: [{
+                        label: 'النقاط المحققة',
+                        data: barScores,
+                        backgroundColor: barColors,
+                        borderColor: barColors,
+                        borderWidth: 2
+                    }, {
+                        label: 'النقاط الكلية',
+                        data: barMaxes,
+                        backgroundColor: '#e5e7eb',
+                        borderColor: '#d1d5db',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            var radarLabels = [];
+            var radarData = [];
+            var radarPointColors = [];
+            for (var i = 0; i < results.sectionScores.length; i++) {
+                radarLabels.push(results.sectionScores[i].name);
+                radarData.push(results.sectionScores[i].percentage);
+                radarPointColors.push(results.sectionScores[i].color);
+            }
+
+            radarChartInstance = new Chart(document.getElementById('radarChart'), {
+                type: 'radar',
+                data: {
+                    labels: radarLabels,
+                    datasets: [{
+                        label: 'الأداء الحالي',
+                        data: radarData,
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: radarPointColors,
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: radarPointColors,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        r: { beginAtZero: true, max: 100, ticks: { stepSize: 20 } }
+                    }
+                }
+            });
+
+            window.scrollTo(0, 0);
+        }
+
+        // الإرسال عبر EmailJS
+		
+function sendEmailWithResults() {
+    var results = calculateResults();
+    var body = buildSurveyText(results);
+
+    var sendBtns = document.getElementById('sendBtns');
+    sendBtns.classList.add('opacity-60');
+
+    var templateParams = {
+        title: 'استبيان مواءمة المنشآت',
+        name: userInfo.name,
+        email: userInfo.email,
+        message: body,                  // النص الكامل (كما هو الآن)
+        total_score: results.totalScore + ' / ' + results.maxScore,
+        total_percent: results.percentage + '%',
+        level_text: results.level,
+        level_emoji: results.emoji
+    };
+
+    emailjs.send("service_v02rb8j", "template_tthd4br", templateParams)
+        .then(function(response) {
+            console.log("EmailJS SUCCESS!", response.status, response.text);
+            sendBtns.classList.add('hidden');
+            document.getElementById('thankYouMessage').classList.remove('hidden');
+            window.scrollTo(0, document.body.scrollHeight);
+        }, function(error) {
+            console.error("EmailJS FAILED...", error);
+            alert("حصل خطأ أثناء إرسال البريد عبر EmailJS.\n\nتفاصيل: " + (error.text || ''));
+            sendBtns.classList.remove('opacity-60');
+        });
+}
+
+	
+
+        function contactUs() {
+            alert('✅ تم إرسال بياناتك!\n\nسنتواصل معك قريباً على رقم: ' + userInfo.phone + '\n\nللتواصل المباشر:\n📞 0501492435');
+        }
+
+        function resetSurvey() {
+            userInfo = {};
+            responses = {};
+            document.getElementById('resultsPage').classList.add('hidden');
+            document.getElementById('infoPage').classList.remove('hidden');
+            document.getElementById('facilityName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('region').value = '';
+            document.getElementById('facilitySize').value = '';
+            document.getElementById('infoError').classList.add('hidden');
+            document.getElementById('progressText').textContent = '0 / ' + totalItems;
+            document.getElementById('progressPercent').textContent = '0';
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('incompleteBtn').classList.remove('hidden');
+            document.getElementById('sendBtns').classList.add('hidden');
+            document.getElementById('sendBtns').classList.remove('opacity-60');
+            document.getElementById('thankYouMessage').classList.add('hidden');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- مهم للجوال -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>استبيان مواءمة المنشآت - تمهير</title>
+    <title>استبيان مواءمة</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -36,13 +36,13 @@
         </div>
     </div>
 
-    <!-- نافذة التواصل (مودال) -->
+    <!-- نافذة تأكيد طلب الاستشارة -->
     <div id="contactModal"
-         class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 px-4">
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 px-4">
         <div class="bg-white rounded-2xl w-full max-w-md p-5 sm:p-6 shadow-2xl">
             <div class="flex items-center justify-between mb-3">
-                <h3 class="text-lg sm:text-xl font-bold text-gray-800">
-                    ✅ تم إرسال بياناتك
+                <h3 id="consultationTitle" class="text-lg sm:text-xl font-bold text-gray-800">
+                    ✅ تم إرسال طلب الاستشارة
                 </h3>
                 <button type="button"
                         onclick="closeContactModal()"
@@ -51,29 +51,46 @@
                 </button>
             </div>
 
-            <p class="text-sm sm:text-base text-gray-700 mb-3">
-                سنتواصل معك قريباً على رقم الجوال الذي قمت بإدخاله:
+            <p id="consultationDesc" class="text-sm sm:text-base text-gray-700 mb-3">
+                تم استلام طلب الاستشارة، وهذه هي بيانات منشأتك:
             </p>
 
-            <div class="bg-indigo-50 border border-indigo-200 rounded-xl px-3 py-2 mb-4">
-                <p class="text-xs text-gray-500 mb-1">رقم الجوال المسجل</p>
-                <p id="contactUserPhone" class="font-semibold text-indigo-700 text-base sm:text-lg">
-                    05xxxxxxxx
-                </p>
+            <div class="space-y-2 mb-4">
+                <div class="bg-indigo-50 border border-indigo-200 rounded-xl px-3 py-2">
+                    <p class="text-xs text-gray-500 mb-1">اسم المنشأة</p>
+                    <p id="contactFacilityName" class="font-semibold text-indigo-700 text-sm sm:text-base"></p>
+                </div>
+
+                <div class="bg-indigo-50 border border-indigo-200 rounded-xl px-3 py-2">
+                    <p class="text-xs text-gray-500 mb-1">البريد الإلكتروني</p>
+                    <p id="contactEmail" class="font-semibold text-indigo-700 text-sm sm:text-base"></p>
+                </div>
+
+                <div class="bg-indigo-50 border border-indigo-200 rounded-xl px-3 py-2">
+                    <p class="text-xs text-gray-500 mb-1">رقم الجوال</p>
+                    <p id="contactPhone" class="font-semibold text-indigo-700 text-sm sm:text-base"></p>
+                </div>
+
+                <div class="bg-indigo-50 border border-indigo-200 rounded-xl px-3 py-2">
+                    <p class="text-xs text-gray-500 mb-1">المنطقة</p>
+                    <p id="contactRegion" class="font-semibold text-indigo-700 text-sm sm:text-base"></p>
+                </div>
+
+                <div class="bg-indigo-50 border border-indigo-200 rounded-xl px-3 py-2">
+                    <p class="text-xs text-gray-500 mb-1">حجم المنشأة</p>
+                    <p id="contactSize" class="font-semibold text-indigo-700 text-sm sm:text-base"></p>
+                </div>
             </div>
 
-            <div class="space-y-2">
-                <a href="tel:0501492435"
-                   class="block w-full text-center bg-gradient-to-r from-green-600 to-emerald-600 text-white py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-md">
-                    📞 الاتصال المباشر على 0501492435
-                </a>
+            <p class="text-xs sm:text-sm text-gray-600 mb-3">
+                سيتم التواصل معكم قريبًا لاستكمال إجراءات الاستشارة وشهادة المواءمة.
+            </p>
 
-                <button type="button"
-                        onclick="closeContactModal()"
-                        class="w-full border border-gray-300 text-gray-700 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold hover:bg-gray-50 transition-all">
-                    إغلاق
-                </button>
-            </div>
+            <button type="button"
+                    onclick="closeContactModal()"
+                    class="w-full border border-gray-300 text-gray-700 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold hover:bg-gray-50 transition-all">
+                إغلاق
+            </button>
         </div>
     </div>
 
@@ -86,7 +103,7 @@
                     <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://tamheer.sa/assets/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
                 </div>
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
-                    🟢 استبيان مواءمة المنشآت
+                    استبيان مواءمة المنشآت
                 </h1>
                 <p class="text-base sm:text-lg text-gray-600">قيّم جاهزية منشأتك في دقيقتين</p>
             </div>
@@ -168,9 +185,9 @@
                     يرجى تعبئة جميع الحقول المطلوبة
                 </div>
 
-                <button onclick="validateAndProceed()"
+                <button onclick="validateAndProceed()" 
                     class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3.5 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
-                    التالي ➡️
+                    التالي ⬅️ 
                 </button>
             </div>
         </div>
@@ -178,14 +195,14 @@
         <!-- Page 2: Survey -->
         <div id="surveyPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
             <div class="text-center mb-6 sm:mb-8">
+                <div class="mb-4 sm:mb-6">
+                    <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://tamheer.sa/assets/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
+                </div>
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
-                    🟢 هل منشأتك مواءمة؟
+                    هل منشأتك مواءمة؟
                 </h1>
                 <p class="text-base sm:text-lg text-gray-600">
                     يرجى اختيار الإجابات التي تعكس وضع منشأتكم الحالي بدقة
-                </p>
-                <p class="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-2">
-                    3 = نعم، 2 = جزئيًا، 1 = لا
                 </p>
             </div>
 
@@ -215,7 +232,7 @@
                 <div id="sendBtns" class="hidden mt-2">
                     <button onclick="sendEmailWithResults()"
                         class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
-                        📧 إرسال النتائج بالبريد
+                        📧 إرسال
                     </button>
                 </div>
                 
@@ -238,14 +255,14 @@
         <!-- Page 3: Results -->
         <div id="resultsPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 text-gray-800">
-                🎯 نتائج استبيان المواءمة
+                🎯 نتائج استبيان
             </h1>
             
             <div class="grid gap-4 sm:gap-6 md:grid-cols-2 mb-6 sm:mb-8">
                 <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-4 sm:p-6 text-white">
                     <h3 class="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2">النتيجة الإجمالية</h3>
                     <div class="text-3xl sm:text-5xl font-bold mb-1.5 sm:mb-2">
-                        <span id="totalScore">0</span> / 33
+                        <span id="totalScore">0</span> / 36
                     </div>
                     <div class="text-xl sm:text-2xl">
                         <span id="totalPercent">0</span>%
@@ -263,25 +280,7 @@
                 </div>
             </div>
 
-            <div class="mb-6 sm:mb-8">
-                <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-gray-800">📊 الأداء التفاعلي حسب الأقسام</h3>
-                <p class="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
-                    الألوان تعكس مستوى الأداء: 🟢 ممتاز (80%+) | 🟡 جيد (50-79%) | 🔴 يحتاج تحسين (أقل من 50%)
-                </p>
-                <div class="relative h-64 sm:h-80">
-                    <canvas id="barChart"></canvas>
-                </div>
-            </div>
-
-            <div class="mb-6 sm:mb-8">
-                <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-gray-800">🕸️ خريطة الأداء الرادارية</h3>
-                <p class="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
-                    كلما اتسعت المساحة، كان أداء المنشأة أفضل
-                </p>
-                <div class="relative h-64 sm:h-80">
-                    <canvas id="radarChart"></canvas>
-                </div>
-            </div>
+            <!-- تم حذف أقسام الرسوم البيانية -->
 
             <div class="bg-blue-50 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
                 <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-800">📋 تفصيل النقاط حسب القسم</h3>
@@ -293,9 +292,9 @@
                 <p class="text-sm sm:text-lg text-gray-700 mb-3 sm:mb-4">
                     لمعرفة تفاصيل التحسين أو طلب استشارة مجانية لاستخراج شهادة مواءمة
                 </p>
-                <button onclick="contactUs()"
-                    class="bg-gradient-to-r from-green-600 إلى-emerald-600 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
-                    📞 اضغط هنا للتواصل (0501492435)
+                <button id="consultationBtn" onclick="sendConsultationRequest()"
+                    class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
+                    📞 لطلب الاستشارة اضغط هنا
                 </button>
             </div>
 
@@ -369,8 +368,7 @@
         var userInfo = {};
         var responses = {};
         var totalItems = 0;
-        var barChartInstance = null;
-        var radarChartInstance = null;
+        var consultationSent = false; // لمنع تكرار طلب الاستشارة لكل استبيان
 
         for (var i = 0; i < sections.length; i++) {
             totalItems += sections[i].items.length;
@@ -472,14 +470,14 @@
 
                     var options = [
                         { value: 3, label: 'نعم ✅', color: 'bg-green-500 hover:bg-green-600' },
-                        { value: 2, label: 'جزئيًا ⚡', color: 'bg-yellow-500 hover:bg-yellow-600' },
+                        { value: 2, label: 'جزئيًا 🔄️', color: 'bg-yellow-500 hover:bg-yellow-600' },
                         { value: 1, label: 'لا ❌', color: 'bg-red-500 hover:bg-red-600' }
                     ];
 
                     for (var j = 0; j < options.length; j++) {
                         var option = options[j];
                         var btn = document.createElement('button');
-                        btn.className = 'option-btn flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-white text-sm sm:text-base font-semibold transition-all bg-gray-300 hover:bg-gray-400';
+                        btn.className = 'option-btn flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-black text-sm sm:text-base font-semibold transition-all bg-gray-300 hover:bg-gray-400';
                         btn.textContent = option.label;
                         btn.dataset.sectionIdx = sIdx;
                         btn.dataset.itemIdx = iIdx;
@@ -505,10 +503,10 @@
 
             var allButtons = document.querySelectorAll('[data-section-idx="' + sIdx + '"][data-item-idx="' + iIdx + '"]');
             for (var i = 0; i < allButtons.length; i++) {
-                allButtons[i].className = 'option-btn flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-white text-sm sm:text-base font-semibold transition-all bg-gray-300 hover:bg-gray-400';
+                allButtons[i].className = 'option-btn flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-black text-sm sm:text-base font-semibold transition-all bg-gray-300 hover:bg-gray-400';
             }
 
-            clickedBtn.className = 'option-btn selected flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-white text-sm sm:text-base font-semibold transition-all ' + color + ' ring-4 ring-offset-2 ring-indigo-300';
+            clickedBtn.className = 'option-btn selected flex-1 py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg text-black text-sm sm:text-base font-semibold transition-all ' + color + ' ring-4 ring-offset-2 ring-indigo-300';
 
             updateProgress();
         }
@@ -559,19 +557,19 @@
             if (totalScore >= 25) {
                 level = "منشأة مواءمة بدرجة عالية";
                 color = "#3b82f6";
-                emoji = "👏";
+                emoji = "";
             } else if (totalScore >= 19) {
                 level = "منشأة في طريقها للمواءمة";
                 color = "#10b981";
-                emoji = "✅";
+                emoji = "";
             } else if (totalScore >= 11) {
                 level = "بحاجة إلى تطوير متوسط";
                 color = "#f59e0b";
-                emoji = "⚙️";
+                emoji = "";
             } else {
                 level = "تحتاج إلى خطة مواءمة عاجلة";
                 color = "#ef4444";
-                emoji = "⚠️";
+                emoji = "";
             }
 
             return { 
@@ -611,7 +609,7 @@
                     var valueText = '';
 
                     if (value === 3) valueText = 'نعم ✅';
-                    else if (value === 2) valueText = 'جزئيًا ⚡';
+                    else if (value === 2) valueText = 'جزئيًا 🔄️';
                     else if (value === 1) valueText = 'لا ❌';
                     else valueText = 'لم يتم الإجابة';
 
@@ -646,83 +644,6 @@
                     + section.percentage + '%; background-color: ' + section.color + '"></div></div></div>';
             }
 
-            if (barChartInstance) barChartInstance.destroy();
-            if (radarChartInstance) radarChartInstance.destroy();
-
-            var barLabels = [];
-            var barScores = [];
-            var barMaxes = [];
-            var barColors = [];
-            for (var i = 0; i < results.sectionScores.length; i++) {
-                barLabels.push(results.sectionScores[i].name);
-                barScores.push(results.sectionScores[i].score);
-                barMaxes.push(results.sectionScores[i].max);
-                barColors.push(results.sectionScores[i].color);
-            }
-
-            barChartInstance = new Chart(document.getElementById('barChart'), {
-                type: 'bar',
-                data: {
-                    labels: barLabels,
-                    datasets: [{
-                        label: 'النقاط المحققة',
-                        data: barScores,
-                        backgroundColor: barColors,
-                        borderColor: barColors,
-                        borderWidth: 2
-                    }, {
-                        label: 'النقاط الكلية',
-                        data: barMaxes,
-                        backgroundColor: '#e5e7eb',
-                        borderColor: '#d1d5db',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { beginAtZero: true }
-                    }
-                }
-            });
-
-            var radarLabels = [];
-            var radarData = [];
-            var radarPointColors = [];
-            for (var i = 0; i < results.sectionScores.length; i++) {
-                radarLabels.push(results.sectionScores[i].name);
-                radarData.push(results.sectionScores[i].percentage);
-                radarPointColors.push(results.sectionScores[i].color);
-            }
-
-            radarChartInstance = new Chart(document.getElementById('radarChart'), {
-                type: 'radar',
-                data: {
-                    labels: radarLabels,
-                    datasets: [{
-                        label: 'الأداء الحالي',
-                        data: radarData,
-                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                        borderColor: 'rgba(59, 130, 246, 1)',
-                        borderWidth: 2,
-                        pointBackgroundColor: radarPointColors,
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: radarPointColors,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: { beginAtZero: true, max: 100, ticks: { stepSize: 20 } }
-                    }
-                }
-            });
-
             window.scrollTo(0, 0);
             showToast('تم عرض النتائج التفصيلية 🎯', 'success');
         }
@@ -734,16 +655,19 @@
             var sendBtns = document.getElementById('sendBtns');
             sendBtns.classList.add('opacity-60');
 
-            var templateParams = {
-                title: 'استبيان مواءمة المنشآت',
-                name: userInfo.name,
-                email: userInfo.email,
-                message: body,
-                total_score: results.totalScore + ' / ' + results.maxScore,
-                total_percent: results.percentage + '%',
-                level_text: results.level,
-                level_emoji: results.emoji
-            };
+			var templateParams = {
+				subject: 'نتائج استبيان مواءمة المنشآت - ' + userInfo.name, // 👈 عنوان التقييم
+				title: 'استبيان مواءمة المنشآت',
+				name: userInfo.name,
+				email: userInfo.email,
+				message: body,
+				total_score: results.totalScore + ' / ' + results.maxScore,
+				total_percent: results.percentage + '%',
+				level_text: results.level,
+				level_emoji: results.emoji,
+				is_results: true,
+				is_consultation: false
+			};
 
             emailjs.send("service_v02rb8j", "template_tthd4br", templateParams)
                 .then(function(response) {
@@ -760,17 +684,94 @@
                 });
         }
 
-        function contactUs() {
-            var phoneText = document.getElementById('contactUserPhone');
-            if (userInfo && userInfo.phone) {
-                phoneText.textContent = userInfo.phone;
-            } else {
-                phoneText.textContent = 'لم يتم إدخال رقم جوال';
+        function sendConsultationRequest() {
+            // منع التكرار
+            if (consultationSent) {
+                showToast('تم إرسال طلب الاستشارة مسبقاً لهذه البيانات ✅', 'info');
+                return;
             }
 
+            // تأكد أن بيانات المنشأة موجودة
+            if (!userInfo || !userInfo.name) {
+                showToast('يرجى تعبئة بيانات المنشأة أولاً', 'error');
+                return;
+            }
+
+            // وضع العلم مباشرة لمنع الضغطات المتكررة
+            consultationSent = true;
+
+            // تعطيل الزر
+            var btn = document.getElementById('consultationBtn');
+            if (btn) {
+                btn.disabled = true;
+                btn.classList.add('opacity-60', 'cursor-not-allowed');
+            }
+
+            // تعبئة بيانات المنشأة في المودال
+            document.getElementById('contactFacilityName').textContent = userInfo.name || '-';
+            document.getElementById('contactEmail').textContent       = userInfo.email || '-';
+            document.getElementById('contactPhone').textContent       = userInfo.phone || '-';
+            document.getElementById('contactRegion').textContent      = userInfo.region || '-';
+            document.getElementById('contactSize').textContent        = userInfo.size || '-';
+
+            // تجهيز نصوص المودال للحالة "جاري الإرسال"
+            document.getElementById('consultationTitle').textContent = '⏳ جاري إرسال طلب الاستشارة';
+            document.getElementById('consultationDesc').textContent  = 'يتم الآن إرسال طلب الاستشارة، وهذه بيانات منشأتك:';
+
+            // إظهار المودال فورًا بدون انتظار الرد
             var modal = document.getElementById('contactModal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+
+            // تجهيز نص البريد: بيانات المنشأة فقط
+            var body = '';
+            body += '📌 طلب استشارة مواءمة\n\n';
+            body += '📌 بيانات المنشأة:\n';
+            body += 'اسم المنشأة: ' + (userInfo.name || '') + '\n';
+            body += 'البريد الإلكتروني: ' + (userInfo.email || '') + '\n';
+            body += 'رقم الجوال: ' + (userInfo.phone || '') + '\n';
+            body += 'المنطقة: ' + (userInfo.region || '') + '\n';
+            body += 'حجم المنشأة: ' + (userInfo.size || '') + '\n';
+
+			var templateParams = {
+				subject: 'طلب استشارة شهادة المواءمة - ' + userInfo.name, // 👈 عنوان مختلف للاستشارة
+				title: 'طلب استشارة مواءمة',
+				name: userInfo.name,
+				email: userInfo.email,
+				message: body,      // بيانات المنشأة فقط
+				total_score: '',
+				total_percent: '',
+				level_text: '',
+				level_emoji: '',
+				is_results: false,
+				is_consultation: true
+			};
+
+            // الإرسال يتم في الخلفية
+            emailjs.send("service_v02rb8j", "template_tthd4br", templateParams)
+                .then(function(response) {
+                    console.log("Consultation Email SUCCESS!", response.status, response.text);
+                    showToast('تم إرسال طلب الاستشارة بنجاح ✅', 'success');
+
+                    // تحديث نصوص المودال بعد نجاح الإرسال
+                    document.getElementById('consultationTitle').textContent = '✅ تم إرسال طلب الاستشارة';
+                    document.getElementById('consultationDesc').textContent  = 'تم استلام طلب الاستشارة، وهذه هي بيانات منشأتك:';
+                }, function(error) {
+                    console.error("Consultation Email FAILED...", error);
+                    alert("حصل خطأ أثناء إرسال طلب الاستشارة عبر EmailJS.\n\nتفاصيل: " + (error.text || ''));
+                    showToast('حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى ⚠️', 'error');
+
+                    // في حالة الخطأ نسمح بمحاولة جديدة
+                    consultationSent = false;
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    }
+
+                    // توضيح الحالة في المودال عند حدوث خطأ
+                    document.getElementById('consultationTitle').textContent = '⚠️ لم يتم إرسال طلب الاستشارة';
+                    document.getElementById('consultationDesc').textContent  = 'حدث خطأ أثناء إرسال الطلب، الرجاء المحاولة مرة أخرى.';
+                });
         }
 
         function closeContactModal() {
@@ -801,6 +802,15 @@
             document.getElementById('sendBtns').classList.add('hidden');
             document.getElementById('sendBtns').classList.remove('opacity-60');
             document.getElementById('thankYouMessage').classList.add('hidden');
+
+            // السماح بطلب استشارة جديد بعد إعادة الاستبيان
+            consultationSent = false;
+            var btn = document.getElementById('consultationBtn');
+            if (btn) {
+                btn.disabled = false;
+                btn.classList.remove('opacity-60', 'cursor-not-allowed');
+            }
+
             window.scrollTo(0, 0);
             showToast('تم إعادة تعيين الاستبيان 🔄', 'info');
         }

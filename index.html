@@ -42,7 +42,7 @@
         <div class="bg-white rounded-2xl w-full max-w-md p-5 sm:p-6 shadow-2xl">
             <div class="flex items-center justify-between mb-3">
                 <h3 id="consultationTitle" class="text-lg sm:text-xl font-bold text-gray-800">
-                    ✅ تم إرسال طلب الاستشارة
+                    تم إرسال طلب الاستشارة ✅
                 </h3>
                 <button type="button"
                         onclick="closeContactModal()"
@@ -100,7 +100,7 @@
         <div id="infoPage" class="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
             <div class="text-center mb-6 sm:mb-8">
                 <div class="mb-4 sm:mb-6">
-                    <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://tamheer.sa/assets/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
+                    <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/K8Rp14K5/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
                 </div>
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
                     استبيان مواءمة المنشآت
@@ -187,7 +187,7 @@
 
                 <button onclick="validateAndProceed()" 
                     class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3.5 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
-                    التالي ⬅️ 
+                    التالي
                 </button>
             </div>
         </div>
@@ -196,7 +196,7 @@
         <div id="surveyPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
             <div class="text-center mb-6 sm:mb-8">
                 <div class="mb-4 sm:mb-6">
-                    <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://tamheer.sa/assets/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
+                    <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/K8Rp14K5/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
                 </div>
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
                     هل منشأتك مواءمة؟
@@ -226,13 +226,13 @@
                 
                 <button id="incompleteBtn"
                     class="w-full py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-bold transition-all bg-gray-300 text-gray-500 cursor-not-allowed">
-                    ⚠️ يرجى إكمال جميع الأسئلة
+                    يرجى إكمال جميع الأسئلة ⚠️
                 </button>
                 
                 <div id="sendBtns" class="hidden mt-2">
                     <button onclick="sendEmailWithResults()"
                         class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
-                        📧 إرسال
+                        إرسال 📨
                     </button>
                 </div>
                 
@@ -248,7 +248,7 @@
 					</div>
 					<button onclick="showResults()"
 						class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
-						📊 عرض النتائج التفصيلية
+						عرض النتائج التفصيلية 📊
 					</button>
 				</div>
 
@@ -257,12 +257,15 @@
 
         <!-- Page 3: Results -->
         <div id="resultsPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+            <div class="mb-4 sm:mb-6">
+                <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/K8Rp14K5/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
+            </div>
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 text-gray-800">
-                🎯 نتائج استبيان
+                نتائج استبيان 🎯
             </h1>
             
             <div class="grid gap-4 sm:gap-6 md:grid-cols-2 mb-6 sm:mb-8">
-                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-4 sm:p-6 text-white">
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-4 sm:p-6 text-white text-center">
                     <h3 class="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2">النتيجة الإجمالية</h3>
                     <div class="text-3xl sm:text-5xl font-bold mb-1.5 sm:mb-2">
                         <span id="totalScore">0</span> / 36
@@ -272,7 +275,7 @@
                     </div>
                 </div>
                 
-                <div id="levelCard" class="rounded-xl p-4 sm:p-6 text-white">
+                <div id="levelCard" class="rounded-xl p-4 sm:p-6 text-white text-center">
                     <h3 class="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2">تقييم المنشأة</h3>
                     <div class="text-2xl sm:text-3xl font-bold mb-1.5 sm:mb-2">
                         <span id="levelEmoji"></span>
@@ -286,24 +289,24 @@
             <!-- تم حذف أقسام الرسوم البيانية -->
 
             <div class="bg-blue-50 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
-                <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-800">📋 تفصيل النقاط حسب القسم</h3>
+                <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-800">تفصيل النقاط حسب القسم 📋</h3>
                 <div id="sectionDetails" class="grid gap-3 sm:gap-4 md:grid-cols-2"></div>
             </div>
 
             <div class="bg-green-50 border-2 border-green-400 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6 text-center">
-                <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">✨ شكراً لمشاركتك!</h3>
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">شكراً لمشاركتك! ✨</h3>
                 <p class="text-sm sm:text-lg text-gray-700 mb-3 sm:mb-4">
                     لمعرفة تفاصيل التحسين أو طلب استشارة مجانية لاستخراج شهادة مواءمة
                 </p>
                 <button id="consultationBtn" onclick="sendConsultationRequest()"
                     class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
-                    📞 لطلب الاستشارة اضغط هنا
+                    لطلب الاستشارة اضغط هنا  📞
                 </button>
             </div>
 
             <button onclick="resetSurvey()"
                 class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
-                🔄 إعادة الاستبيان
+                إعادة الاستبيان 🔄
             </button>
         </div>
     </div>
@@ -322,13 +325,13 @@
 
             if (type === 'success') {
                 toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-green-600 text-white";
-                icon.textContent = '✅';
+                icon.textContent = '';
             } else if (type === 'error') {
                 toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-red-600 text-white";
-                icon.textContent = '⚠️';
+                icon.textContent = '';
             } else {
                 toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-indigo-600 text-white";
-                icon.textContent = 'ℹ️';
+                icon.textContent = '';
             }
 
             wrapper.classList.remove('hidden');
@@ -472,9 +475,9 @@
                     buttonsDiv.className = 'flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center';
 
                     var options = [
-                        { value: 3, label: 'نعم ✅', color: 'bg-green-500 hover:bg-green-600' },
-                        { value: 2, label: 'جزئيًا 🔄️', color: 'bg-yellow-500 hover:bg-yellow-600' },
-                        { value: 1, label: 'لا ❌', color: 'bg-red-500 hover:bg-red-600' }
+                        { value: 3, label: 'نعم ', color: 'bg-green-500 hover:bg-green-600' },
+                        { value: 2, label: 'جزئيًا ', color: 'bg-yellow-500 hover:bg-yellow-600' },
+                        { value: 1, label: 'لا ', color: 'bg-red-500 hover:bg-red-600' }
                     ];
 
                     for (var j = 0; j < options.length; j++) {
@@ -589,18 +592,18 @@
         function buildSurveyText(results) {
             var text = '';
 
-            text += '📌 بيانات المنشأة:\n';
+            text += 'بيانات المنشأة 📌:\n';
             text += 'اسم المنشأة: ' + userInfo.name + '\n';
             text += 'البريد الإلكتروني: ' + userInfo.email + '\n';
             text += 'رقم الجوال: ' + userInfo.phone + '\n';
             text += 'المنطقة: ' + userInfo.region + '\n';
             text += 'حجم المنشأة: ' + userInfo.size + '\n\n';
 
-            text += '🎯 النتيجة الإجمالية:\n';
+            text += 'النتيجة الإجمالية 🎯:\n';
             text += results.totalScore + ' من ' + results.maxScore + ' (' + results.percentage + '%)\n';
             text += 'التقييم: ' + results.level + ' ' + results.emoji + '\n\n';
 
-            text += '📊 التفصيل حسب الأقسام:\n';
+            text += 'التفصيل حسب الأقسام 📊:\n';
 
             for (var sIdx = 0; sIdx < sections.length; sIdx++) {
                 var section = sections[sIdx];
@@ -718,7 +721,7 @@
             document.getElementById('contactSize').textContent        = userInfo.size || '-';
 
             // تجهيز نصوص المودال للحالة "جاري الإرسال"
-            document.getElementById('consultationTitle').textContent = '⏳ جاري إرسال طلب الاستشارة';
+            document.getElementById('consultationTitle').textContent = 'جاري إرسال طلب الاستشارة ⏳';
             document.getElementById('consultationDesc').textContent  = 'يتم الآن إرسال طلب الاستشارة، وهذه بيانات منشأتك:';
 
             // إظهار المودال فورًا بدون انتظار الرد
@@ -757,7 +760,7 @@
                     showToast('تم إرسال طلب الاستشارة بنجاح ✅', 'success');
 
                     // تحديث نصوص المودال بعد نجاح الإرسال
-                    document.getElementById('consultationTitle').textContent = '✅ تم إرسال طلب الاستشارة';
+                    document.getElementById('consultationTitle').textContent = 'تم إرسال طلب الاستشارة ✅';
                     document.getElementById('consultationDesc').textContent  = 'تم استلام طلب الاستشارة، وهذه هي بيانات منشأتك:';
                 }, function(error) {
                     console.error("Consultation Email FAILED...", error);
@@ -772,7 +775,7 @@
                     }
 
                     // توضيح الحالة في المودال عند حدوث خطأ
-                    document.getElementById('consultationTitle').textContent = '⚠️ لم يتم إرسال طلب الاستشارة';
+                    document.getElementById('consultationTitle').textContent = 'لم يتم إرسال طلب الاستشارة ⚠️';
                     document.getElementById('consultationDesc').textContent  = 'حدث خطأ أثناء إرسال الطلب، الرجاء المحاولة مرة أخرى.';
                 });
         }

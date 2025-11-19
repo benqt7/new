@@ -23,6 +23,10 @@
         .option-btn { transition: all 0.2s ease; }
         .option-btn:hover { transform: scale(1.05); }
         .option-btn.selected { transform: scale(1.08); }
+		.partners-marquee {overflow: hidden; position: relative; direction: ltr; /* عشان اتجاه الحركة ما يتأثر بـ RTL للصفحة */}
+		.partners-marquee-track {display: flex;gap: 1.5rem;       /* مسافة بين الشعارات */width: max-content;animation: partners-marquee 30s linear infinite;}
+		.partners-marquee-track:hover {animation-play-state: paused; /* توقف عند الوقوف بالماوس */}
+		@keyframes partners-marquee {0% {transform: translateX(0); }100% { transform: translateX(-50%); /* نصف العرض بعد ما نكرر المحتوى برمجياً */}}
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -95,19 +99,150 @@
     </div>
 
     <div class="container mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6">
-        
+            
         <!-- Page 1: Personal Info -->
         <div id="infoPage" class="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
             <div class="text-center mb-6 sm:mb-8">
-                <div class="mb-4 sm:mb-6">
-                    <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/K8Rp14K5/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"></div>
-                </div>
-                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
-                    استبيان مواءمة المنشآت
-                </h1>
-                <p class="text-base sm:text-lg text-gray-600">قيّم جاهزية منشأتك في دقيقتين</p>
-            </div>
+    
+                <!-- عنوان الشركاء -->
+				<div class="my-6 flex items-center justify-center">
+					<span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
+					<span     class="inline-flex items-center justify-center gap-2 px-4 py-1.5 mx-auto mb-4
+					text-[11px] sm:text-xs font-semibold tracking-wide
+					text-indigo-700 bg-indigo-50 border border-indigo-100
+					rounded-full shadow-sm"
+					>
+					<span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+					<span>شركاؤنا في التمكين</span>
+					<span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+					</span>
+					<span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
+				</div>
 
+
+                <!-- شريط الشركاء المتحرك -->
+                <div class="partners-marquee mb-4">
+                    <div class="partners-marquee-track">
+    
+                        <!-- مؤسسة الملك خالد -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/mrXntJQ8/mwsst-almlk-khald.jpg')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- Safari -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/v4Lsfzbw/Safari-logo.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- The Clinics -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/hXbBTrgH/The-Clinics.jpg')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- alathath -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/18cQwHPk/alathath.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- althalf -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/Y4rw3WCH/althalf.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- الخزف السعودي -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/tstjW5pQ/alkhzf-alsʿwdy-jpg-large.jpg')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- السدحان -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/mPNsCwBG/alsdhan.jpg')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- الفَنار -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/9DthZpC2/alfnar.jpg')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- باجه -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/zySrKj8r/bajh.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- كارمية -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/hG1S6DWk/karmyh.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- Holiday Inn -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/5XqVL3bf/lwqw-hwlydy-an.jpg')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- كونسلت -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/nzm1pPTx/sʿwd-kwnslt.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- تقنية العطور -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/r0bXMZCF/lwjw-tqnyt-alʿtwr.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- مريوت -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/r0bXMZCr/marywt.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- حديد الراجحي -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/Xq2QXCMt/hdyd-alrajhy.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                        <!-- بناء -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/YCLbq0dx/bnaʾ.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+    
+                    </div>
+                </div>
+    
+                <!-- فاصل بين الشركاء والشعار -->
+				<div class="my-4 flex justify-center">
+					<div class="h-px w-80 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
+				</div>
+    
+                <!-- الشعار الأساسي -->
+                <div class="mb-4 sm:mb-6">
+                    <div
+                        class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/K8Rp14K5/tamheerlogo.png')] bg-center bg-contain bg-no-repeat">
+                    </div>
+                </div>
+    
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
+                    تقييم مدى مواءمة
+                </h1>
+                <h1 class="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 text-gray-800">
+                    منشأتكم للأشخاص ذوي الإعاقة
+                </h1>
+            </div>
+    		
             <div class="space-y-4 sm:space-y-6">
                 <div>
                     <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
@@ -116,7 +251,7 @@
                     <input type="text" id="facilityName" required
                         class="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none text-sm sm:text-base">
                 </div>
-
+    
                 <div>
                     <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
                         البريد الإلكتروني <span class="text-red-500">*</span>
@@ -127,21 +262,19 @@
                         الرجاء إدخال بريد إلكتروني صحيح (مثال: name@example.com)
                     </p>
                 </div>
-
+    
                 <div class="grid gap-4 md:grid-cols-2">
                     <div>
                         <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
                             رقم الجوال <span class="text-red-500">*</span>
                         </label>
-                        <input type="tel" id="phone" required
-                            placeholder="05xxxxxxxx"
-                            maxlength="10"
+                        <input type="tel" id="phone" required placeholder="05xxxxxxxx" maxlength="10"
                             class="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none text-sm sm:text-base">
                         <p id="phoneError" class="hidden text-red-600 text-sm mt-1">
                             الرجاء إدخال رقم جوال سعودي صحيح بصيغة 05xxxxxxxx
                         </p>
                     </div>
-
+    
                     <div>
                         <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
                             المنطقة <span class="text-red-500">*</span>
@@ -165,7 +298,7 @@
                         </select>
                     </div>
                 </div>
-
+    
                 <div>
                     <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
                         حجم المنشأة <span class="text-red-500">*</span>
@@ -179,18 +312,19 @@
                         <option value="صغرى">صغرى</option>
                     </select>
                 </div>
-
+    
                 <div id="infoError"
                     class="hidden bg-red-100 border border-red-400 text-red-700 px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg text-sm sm:text-base">
                     يرجى تعبئة جميع الحقول المطلوبة
                 </div>
-
-                <button onclick="validateAndProceed()" 
+    
+                <button onclick="validateAndProceed()"
                     class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3.5 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
                     التالي
                 </button>
             </div>
         </div>
+    </div>
 
         <!-- Page 2: Survey -->
         <div id="surveyPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
@@ -339,6 +473,14 @@
             if (toastTimeout) clearTimeout(toastTimeout);
             toastTimeout = setTimeout(hideToast, 3000);
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+          const track = document.querySelector('.partners-marquee-track');
+          if (!track) return;
+        
+          // نكرر محتوى الشريط مرة ثانية فقط برمجياً
+          track.innerHTML += track.innerHTML;
+        });
 
         function hideToast() {
             var wrapper = document.getElementById('toastWrapper');
@@ -740,7 +882,7 @@
             body += 'حجم المنشأة: ' + (userInfo.size || '') + '\n';
 
 			var templateParams = {
-				subject: 'طلب استشارة شهادة المواءمة - ' + userInfo.name, // 👈 عنوان مختلف للاستشارة
+				subject: 'طلب استشارة شهادة مواءمة - ' + userInfo.name, // 👈 عنوان مختلف للاستشارة
 				title: 'طلب استشارة مواءمة',
 				name: userInfo.name,
 				email: userInfo.email,

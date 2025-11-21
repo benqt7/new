@@ -23,28 +23,40 @@
         .option-btn { transition: all 0.2s ease; }
         .option-btn:hover { transform: scale(1.05); }
         .option-btn.selected { transform: scale(1.08); }
-		.partners-marquee {overflow: hidden; position: relative; direction: ltr; /* عشان اتجاه الحركة ما يتأثر بـ RTL للصفحة */}
-		.partners-marquee-track {display: flex;gap: 1.5rem;       /* مسافة بين الشعارات */width: max-content;animation: partners-marquee 30s linear infinite;}
-		.partners-marquee-track:hover {animation-play-state: paused; /* توقف عند الوقوف بالماوس */}
-		@keyframes partners-marquee {0% {transform: translateX(0); }100% { transform: translateX(-50%); /* نصف العرض بعد ما نكرر المحتوى برمجياً */}}
-		
-.form-card {
-    position: relative;
-    overflow: hidden; /* عشان ما يطلع الشعار برا الكرت */
-}
+        .partners-marquee {
+            overflow: hidden;
+            position: relative;
+            direction: ltr; /* عشان اتجاه الحركة ما يتأثر بـ RTL للصفحة */
+        }
+        .partners-marquee-track {
+            display: flex;
+            gap: 1.5rem; /* مسافة بين الشعارات */
+            width: max-content;
+            animation: partners-marquee 30s linear infinite;
+        }
+        .partners-marquee-track:hover {
+            animation-play-state: paused; /* توقف عند الوقوف بالماوس */
+        }
+        @keyframes partners-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); /* نصف العرض بعد ما نكرر المحتوى برمجياً */ }
+        }
 
-/* الشعار كـ watermark في وسط البطاقة */
-.form-card::before {
-    content: "";
-    position: absolute;
-    inset: 0; /* يمسك الكرت بالكامل */
-    background: url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png') no-repeat center center;
-    background-size: 420px auto; /* كبر/صغر على كيفك */
-    opacity: 0.19; /* شفافية الشعار */
-    pointer-events: none; /* ما يمنع الضغط على الفورم */
-}
+        .form-card {
+            position: relative;
+            overflow: hidden; /* عشان ما يطلع الشعار برا الكرت */
+        }
 
-		
+        /* الشعار كـ watermark في وسط البطاقة */
+        .form-card::before {
+            content: "";
+            position: absolute;
+            inset: 0; /* يمسك الكرت بالكامل */
+            background: url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png') no-repeat center center;
+            background-size: 420px auto; /* كبر/صغر على كيفك */
+            opacity: 0.19; /* شفافية الشعار */
+            pointer-events: none; /* ما يمنع الضغط على الفورم */
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -116,6 +128,7 @@
         </div>
     </div>
 
+    <!-- container واحد لكل الصفحات -->
     <div class="container mx-auto max-w-4xl px-4 py-4 sm:px-6 sm:py-6">
             
         <!-- Page 1: Personal Info -->
@@ -125,18 +138,16 @@
                 <!-- عنوان الشركاء -->
 				<div class="my-6 flex items-center justify-center">
 					<span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
-					<span     class="inline-flex items-center justify-center gap-2 px-4 py-1.5 mx-auto mb-4
+					<span class="inline-flex items-center justify-center gap-2 px-4 py-1.5 mx-auto mb-4
 					text-[11px] sm:text-xs font-semibold tracking-wide
 					text-indigo-700 bg-indigo-50 border border-indigo-100
-					rounded-full shadow-sm"
-					>
-					<span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
-					<span>شركاؤنا في التمكين</span>
-					<span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+					rounded-full shadow-sm">
+						<span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+						<span>شركاؤنا في التمكين</span>
+						<span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
 					</span>
 					<span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
 				</div>
-
 
                 <!-- شريط الشركاء المتحرك -->
                 <div class="partners-marquee mb-4">
@@ -246,13 +257,6 @@
 					<div class="h-px w-80 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
 				</div>
     
-                <!-- الشعار الأساسي -->
-                <!-- <div class="mb-4 sm:mb-6"> -->
-                    <!-- <div -->
-                        <!-- class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/K8Rp14K5/tamheerlogo.png')] bg-center bg-contain bg-no-repeat"> -->
-                    <!-- </div> -->
-                <!-- </div> -->
-    
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
                     تقييم مدى مواءمة
                 </h1>
@@ -342,7 +346,6 @@
                 </button>
             </div>
         </div>
-    </div>
 
         <!-- Page 2: Survey -->
         <div id="surveyPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
@@ -399,7 +402,7 @@
 						</p>
 					</div>
 					<button onclick="showResults()"
-						class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
+						class="w-full bg-gradient-to-r from-indigo-600 إلى-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
 						عرض النتائج التفصيلية 📊
 					</button>
 				</div>
@@ -438,8 +441,6 @@
                 </div>
             </div>
 
-            <!-- تم حذف أقسام الرسوم البيانية -->
-
             <div class="bg-blue-50 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
                 <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-800">تفصيل النقاط حسب القسم 📋</h3>
                 <div id="sectionDetails" class="grid gap-3 sm:gap-4 md:grid-cols-2"></div>
@@ -461,7 +462,8 @@
                 إعادة الاستبيان 🔄
             </button>
         </div>
-    </div>
+
+    </div> <!-- نهاية الـ container -->
 
     <script>
         // ===== Toast Functions =====
@@ -476,10 +478,10 @@
             msg.textContent = message;
 
             if (type === 'success') {
-                toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-green-600 text-white";
+                toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-green-600 text:white";
                 icon.textContent = '';
             } else if (type === 'error') {
-                toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-red-600 text-white";
+                toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items:center gap-2 bg-red-600 text-white";
                 icon.textContent = '';
             } else {
                 toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-indigo-600 text-white";
@@ -822,7 +824,7 @@
             sendBtns.classList.add('opacity-60');
 
 			var templateParams = {
-				subject: 'نتائج استبيان مواءمة المنشآت - ' + userInfo.name, // 👈 عنوان التقييم
+				subject: 'نتائج استبيان مواءمة المنشآت - ' + userInfo.name,
 				title: 'استبيان مواءمة المنشآت',
 				name: userInfo.name,
 				email: userInfo.email,
@@ -900,11 +902,11 @@
             body += 'حجم المنشأة: ' + (userInfo.size || '') + '\n';
 
 			var templateParams = {
-				subject: 'طلب استشارة شهادة مواءمة - ' + userInfo.name, // 👈 عنوان مختلف للاستشارة
+				subject: 'طلب استشارة شهادة مواءمة - ' + userInfo.name,
 				title: 'طلب استشارة مواءمة',
 				name: userInfo.name,
 				email: userInfo.email,
-				message: body,      // بيانات المنشأة فقط
+				message: body,
 				total_score: '',
 				total_percent: '',
 				level_text: '',

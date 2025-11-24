@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -23,6 +23,21 @@
         .option-btn { transition: all 0.2s ease; }
         .option-btn:hover { transform: scale(1.05); }
         .option-btn.selected { transform: scale(1.08); }
+		
+<!-- .option-btn { -->
+    <!-- transition: all 0.2s ease; -->
+    <!-- box-shadow: 0 3px 8px rgba(15, 23, 42, 0.18); /* شادو خفيف للأزرار */ -->
+<!-- } -->
+
+<!-- .option-btn:hover { -->
+    <!-- transform: scale(1.05); -->
+<!-- } -->
+
+<!-- .option-btn.selected { -->
+    <!-- transform: scale(1.08); -->
+    <!-- box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3); /* شادو أقوى للزر المختار */ -->
+<!-- } -->
+		
         .partners-marquee {
             overflow: hidden;
             position: relative;
@@ -42,20 +57,27 @@
             100% { transform: translateX(-50%); /* نصف العرض بعد ما نكرر المحتوى برمجياً */ }
         }
 
-        .form-card {
+        .form-card > * {
             position: relative;
-            overflow: hidden; /* عشان ما يطلع الشعار برا الكرت */
+            z-index: 1;
         }
-
+        
         /* الشعار كـ watermark في وسط البطاقة */
         .form-card::before {
             content: "";
             position: absolute;
-            inset: 0; /* يمسك الكرت بالكامل */
+            inset: 0;
             background: url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png') no-repeat center center;
-            background-size: 420px auto; /* كبر/صغر على كيفك */
-            opacity: 0.19; /* شفافية الشعار */
-            pointer-events: none; /* ما يمنع الضغط على الفورم */
+            background-size: 420px auto;
+            opacity: 0.19;
+            pointer-events: none;
+        }
+        
+        /* الشعار في صفحة الاستبيان يكون ثابت وواضح فوق المحتوى */
+        #surveyPage.form-card::before {
+            position: fixed;   /* يثبت على الشاشة مع السكروول */
+            inset: 0;
+            z-index: 10;       /* فوق الأزرار والكروت */
         }
     </style>
 </head>
@@ -348,11 +370,11 @@
         </div>
 
         <!-- Page 2: Survey -->
-        <div id="surveyPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+        <div id="surveyPage" class="form-card hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
             <div class="text-center mb-6 sm:mb-8">
-                <div class="mb-4 sm:mb-6">
-                    <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png')] bg-center bg-contain bg-no-repeat"></div>
-                </div>
+                <!-- <div class="mb-4 sm:mb-6"> -->
+                    <!-- <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png')] bg-center bg-contain bg-no-repeat"></div> -->
+                <!-- </div> -->
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
                     هل منشأتك مواءمة؟
                 </h1>

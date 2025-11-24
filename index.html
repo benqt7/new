@@ -79,6 +79,13 @@
             inset: 0;
             z-index: 10;       /* فوق الأزرار والكروت */
         }
+		
+		#resultsPage.form-card::before {
+			position: fixed;
+			inset: 0;
+			z-index: 10;
+		}
+
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -433,10 +440,10 @@
         </div>
 
         <!-- Page 3: Results -->
-        <div id="resultsPage" class="hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
-            <div class="mb-4 sm:mb-6">
-                <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png')] bg-center bg-contain bg-no-repeat"></div>
-            </div>
+        <div id="resultsPage" class="form-card hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+            <!-- <div class="mb-4 sm:mb-6"> -->
+                <!-- <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png')] bg-center bg-contain bg-no-repeat"></div> -->
+            <!-- </div> -->
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 text-gray-800">
                 نتائج استبيان 🎯
             </h1>

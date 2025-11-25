@@ -17,6 +17,25 @@
     </script>
 
     <style>
+	
+		/* منع التحديد في كل الصفحة */
+		body {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+		
+		/* السماح بالتحديد داخل الحقول فقط */
+		input,
+		textarea,
+		select {
+			-webkit-user-select: text;
+			-moz-user-select: text;
+			-ms-user-select: text;
+			user-select: text;
+		}
+	
         * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         .section-card { transition: all 0.3s ease; }
         .section-card:hover { transform: translateY(-2px); }
@@ -864,14 +883,14 @@ document.addEventListener('DOMContentLoaded', function () {
             return text;
         }
 
-function autoFillInfo() {
-    // عدّل القيم هذي على كيفك
-    document.getElementById('facilityName').value  = 'مركز تمهير للتدريب';
-    document.getElementById('email').value         = 'info@example.com';
-    document.getElementById('phone').value         = '0500000000';
-    document.getElementById('region').value        = 'الرياض';
-    document.getElementById('facilitySize').value  = 'متوسطة';
-}
+		function autoFillInfo() {
+			// عدّل القيم هذي على كيفك
+			document.getElementById('facilityName').value  = 'مركز تمهير للتدريب';
+			document.getElementById('email').value         = 'info@example.com';
+			document.getElementById('phone').value         = '0500000000';
+			document.getElementById('region').value        = 'الرياض';
+			document.getElementById('facilitySize').value  = 'متوسطة';
+		}
 
         function showResults() {
             var results = calculateResults();

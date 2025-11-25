@@ -24,38 +24,67 @@
         .option-btn:hover { transform: scale(1.05); }
         .option-btn.selected { transform: scale(1.08); }
 		
-<!-- .option-btn { -->
-    <!-- transition: all 0.2s ease; -->
-    <!-- box-shadow: 0 3px 8px rgba(15, 23, 42, 0.18); /* شادو خفيف للأزرار */ -->
-<!-- } -->
-
-<!-- .option-btn:hover { -->
-    <!-- transform: scale(1.05); -->
-<!-- } -->
-
-<!-- .option-btn.selected { -->
-    <!-- transform: scale(1.08); -->
-    <!-- box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3); /* شادو أقوى للزر المختار */ -->
-<!-- } -->
+		/* أزرار التقييم – كبسولات متدرجة مع شادو */
+		.option-btn {
+			transition: all 0.18s ease-out;
+			border-radius: 999px !important; /* كبسولة */
+			background: linear-gradient(145deg, #e5e7eb, #f9fafb);
+			box-shadow:
+				0 2px 5px rgba(15, 23, 42, 0.12),
+				0 0 0 1px rgba(148, 163, 184, 0.6);
+		}
 		
-        .partners-marquee {
-            overflow: hidden;
-            position: relative;
-            direction: ltr; /* عشان اتجاه الحركة ما يتأثر بـ RTL للصفحة */
-        }
-        .partners-marquee-track {
-            display: flex;
-            gap: 1.5rem; /* مسافة بين الشعارات */
-            width: max-content;
-            animation: partners-marquee 30s linear infinite;
-        }
-        .partners-marquee-track:hover {
-            animation-play-state: paused; /* توقف عند الوقوف بالماوس */
-        }
-        @keyframes partners-marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); /* نصف العرض بعد ما نكرر المحتوى برمجياً */ }
-        }
+		.option-btn:hover {
+			transform: translateY(-1px) scale(1.03);
+			box-shadow:
+				0 6px 16px rgba(15, 23, 42, 0.18),
+				0 0 0 1px rgba(129, 140, 248, 0.8);
+		}
+		
+		/* الأساس لما يكون الزر مختار: نفس الحركة والشادو */
+		.option-btn.selected {
+			transform: translateY(-1px) scale(1.05);
+			color: #ffffff !important;
+			box-shadow:
+				0 10px 25px rgba(15, 23, 42, 0.35),
+				0 0 0 1px rgba(191, 219, 254, 0.9);
+		}
+		
+		/* تخصيص الألوان لكل نوع اختيار مع نفس شكل الجradient */
+		.option-btn.selected.bg-green-500 {
+			background: radial-gradient(circle at top left, #16a34a, #22c55e); /* نعم */
+		}
+		
+		.option-btn.selected.bg-yellow-500 {
+			background: radial-gradient(circle at top left, #f59e0b, #fbbf24); /* جزئياً */
+		}
+		
+		.option-btn.selected.bg-red-500 {
+			background: radial-gradient(circle at top left, #ef4444, #dc2626); /* لا */
+		}
+				
+		/* شريط الشركاء المتحرك */
+		.partners-marquee {
+			overflow: hidden;
+			position: relative;
+			direction: ltr; /* عشان اتجاه الحركة ما يتأثر بـ RTL للصفحة */
+		}
+		
+		.partners-marquee-track {
+			display: flex;
+			gap: 1.5rem; /* مسافة بين الشعارات */
+			width: max-content;
+			animation: partners-marquee 30s linear infinite;
+		}
+		
+		.partners-marquee-track:hover {
+			animation-play-state: paused; /* توقف عند الوقوف بالماوس */
+		}
+		
+		@keyframes partners-marquee {
+			0%   { transform: translateX(0); }
+			100% { transform: translateX(-50%); }
+		}
 
         .form-card > * {
             position: relative;
@@ -81,6 +110,12 @@
         }
 		
 		#resultsPage.form-card::before {
+			position: fixed;
+			inset: 0;
+			z-index: 10;
+		}
+
+		#infoPage.form-card::before {
 			position: fixed;
 			inset: 0;
 			z-index: 10;
@@ -523,13 +558,25 @@
             toastTimeout = setTimeout(hideToast, 3000);
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-          const track = document.querySelector('.partners-marquee-track');
-          if (!track) return;
+        <!-- document.addEventListener('DOMContentLoaded', function () { -->
+          <!-- const track = document.querySelector('.partners-marquee-track'); -->
+          <!-- if (!track) return; -->
         
-          // نكرر محتوى الشريط مرة ثانية فقط برمجياً
-          track.innerHTML += track.innerHTML;
-        });
+          <!-- // نكرر محتوى الشريط مرة ثانية فقط برمجياً -->
+          <!-- track.innerHTML += track.innerHTML; -->
+        <!-- }); -->
+
+document.addEventListener('DOMContentLoaded', function () {
+    const track = document.querySelector('.partners-marquee-track');
+    if (track) {
+        // نكرر محتوى الشريط مرة ثانية فقط برمجياً
+        track.innerHTML += track.innerHTML;
+    }
+
+    // تعبئة الحقول تلقائياً عند فتح الصفحة
+    autoFillInfo();
+});
+
 
         function hideToast() {
             var wrapper = document.getElementById('toastWrapper');
@@ -816,6 +863,15 @@
 
             return text;
         }
+
+function autoFillInfo() {
+    // عدّل القيم هذي على كيفك
+    document.getElementById('facilityName').value  = 'مركز تمهي للتدريب';
+    document.getElementById('email').value         = 'info@example.com';
+    document.getElementById('phone').value         = '0500000000';
+    document.getElementById('region').value        = 'الرياض';
+    document.getElementById('facilitySize').value  = 'متوسطة';
+}
 
         function showResults() {
             var results = calculateResults();

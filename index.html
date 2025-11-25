@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -17,99 +17,96 @@
     </script>
 
     <style>
-	
-		/* منع التحديد في كل الصفحة */
-		body {
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-		}
-		
-		/* السماح بالتحديد داخل الحقول فقط */
-		input,
-		textarea,
-		select {
-			-webkit-user-select: text;
-			-moz-user-select: text;
-			-ms-user-select: text;
-			user-select: text;
-		}
-	
+        /* منع التحديد في كل الصفحة */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* السماح بالتحديد داخل الحقول فقط */
+        input,
+        textarea,
+        select {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
         * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
         .section-card { transition: all 0.3s ease; }
         .section-card:hover { transform: translateY(-2px); }
-        .option-btn { transition: all 0.2s ease; }
-        .option-btn:hover { transform: scale(1.05); }
-        .option-btn.selected { transform: scale(1.08); }
-		
-		/* أزرار التقييم – كبسولات متدرجة مع شادو */
-		.option-btn {
-			transition: all 0.18s ease-out;
-			border-radius: 999px !important; /* كبسولة */
-			background: linear-gradient(145deg, #e5e7eb, #f9fafb);
-			box-shadow:
-				0 2px 5px rgba(15, 23, 42, 0.12),
-				0 0 0 1px rgba(148, 163, 184, 0.6);
-		}
-		
-		.option-btn:hover {
-			transform: translateY(-1px) scale(1.03);
-			box-shadow:
-				0 6px 16px rgba(15, 23, 42, 0.18),
-				0 0 0 1px rgba(129, 140, 248, 0.8);
-		}
-		
-		/* الأساس لما يكون الزر مختار: نفس الحركة والشادو */
-		.option-btn.selected {
-			transform: translateY(-1px) scale(1.05);
-			color: #ffffff !important;
-			box-shadow:
-				0 10px 25px rgba(15, 23, 42, 0.35),
-				0 0 0 1px rgba(191, 219, 254, 0.9);
-		}
-		
-		/* تخصيص الألوان لكل نوع اختيار مع نفس شكل الجradient */
-		.option-btn.selected.bg-green-500 {
-			background: radial-gradient(circle at top left, #16a34a, #22c55e); /* نعم */
-		}
-		
-		.option-btn.selected.bg-yellow-500 {
-			background: radial-gradient(circle at top left, #f59e0b, #fbbf24); /* جزئياً */
-		}
-		
-		.option-btn.selected.bg-red-500 {
-			background: radial-gradient(circle at top left, #ef4444, #dc2626); /* لا */
-		}
-				
-		/* شريط الشركاء المتحرك */
-		.partners-marquee {
-			overflow: hidden;
-			position: relative;
-			direction: ltr; /* عشان اتجاه الحركة ما يتأثر بـ RTL للصفحة */
-		}
-		
-		.partners-marquee-track {
-			display: flex;
-			gap: 1.5rem; /* مسافة بين الشعارات */
-			width: max-content;
-			animation: partners-marquee 30s linear infinite;
-		}
-		
-		.partners-marquee-track:hover {
-			animation-play-state: paused; /* توقف عند الوقوف بالماوس */
-		}
-		
-		@keyframes partners-marquee {
-			0%   { transform: translateX(0); }
-			100% { transform: translateX(-50%); }
-		}
+
+        /* أزرار التقييم – كبسولات متدرجة مع شادو */
+        .option-btn {
+            transition: all 0.18s ease-out;
+            border-radius: 999px !important; /* كبسولة */
+            background: linear-gradient(145deg, #e5e7eb, #f9fafb);
+            box-shadow:
+                0 2px 5px rgba(15, 23, 42, 0.12),
+                0 0 0 1px rgba(148, 163, 184, 0.6);
+        }
+
+        .option-btn:hover {
+            transform: translateY(-1px) scale(1.03);
+            box-shadow:
+                0 6px 16px rgba(15, 23, 42, 0.18),
+                0 0 0 1px rgba(129, 140, 248, 0.8);
+        }
+
+        /* الأساس لما يكون الزر مختار: نفس الحركة والشادو */
+        .option-btn.selected {
+            transform: translateY(-1px) scale(1.05);
+            color: #ffffff !important;
+            box-shadow:
+                0 10px 25px rgba(15, 23, 42, 0.35),
+                0 0 0 1px rgba(191, 219, 254, 0.9);
+        }
+
+        /* تخصيص الألوان لكل نوع اختيار مع نفس شكل الجradient */
+        .option-btn.selected.bg-green-500 {
+            background: radial-gradient(circle at top left, #16a34a, #22c55e); /* نعم */
+        }
+
+        .option-btn.selected.bg-yellow-500 {
+            background: radial-gradient(circle at top left, #f59e0b, #fbbf24); /* جزئياً */
+        }
+
+        .option-btn.selected.bg-red-500 {
+            background: radial-gradient(circle at top left, #ef4444, #dc2626); /* لا */
+        }
+
+        /* شريط الشركاء المتحرك */
+        .partners-marquee {
+            overflow: hidden;
+            position: relative;
+            direction: ltr; /* عشان اتجاه الحركة ما يتأثر بـ RTL للصفحة */
+        }
+
+        .partners-marquee-track {
+            display: flex;
+            gap: 1.5rem; /* مسافة بين الشعارات */
+            width: max-content;
+            animation: partners-marquee 30s linear infinite;
+        }
+
+        .partners-marquee-track:hover {
+            animation-play-state: paused; /* توقف عند الوقوف بالماوس */
+        }
+
+        @keyframes partners-marquee {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
         .form-card > * {
             position: relative;
             z-index: 1;
         }
-        
+
         /* الشعار كـ watermark في وسط البطاقة */
         .form-card::before {
             content: "";
@@ -120,26 +117,15 @@
             opacity: 0.19;
             pointer-events: none;
         }
-        
-        /* الشعار في صفحة الاستبيان يكون ثابت وواضح فوق المحتوى */
-        #surveyPage.form-card::before {
+
+        /* الشعار في كل الصفحات يكون ثابت وواضح فوق المحتوى */
+        #surveyPage.form-card::before,
+        #resultsPage.form-card::before,
+        #infoPage.form-card::before {
             position: fixed;   /* يثبت على الشاشة مع السكروول */
             inset: 0;
             z-index: 10;       /* فوق الأزرار والكروت */
         }
-		
-		#resultsPage.form-card::before {
-			position: fixed;
-			inset: 0;
-			z-index: 10;
-		}
-
-		#infoPage.form-card::before {
-			position: fixed;
-			inset: 0;
-			z-index: 10;
-		}
-
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -219,18 +205,18 @@
             <div class="text-center mb-6 sm:mb-8">
     
                 <!-- عنوان الشركاء -->
-				<div class="my-6 flex items-center justify-center">
-					<span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
-					<span class="inline-flex items-center justify-center gap-2 px-4 py-1.5 mx-auto mb-4
-					text-[11px] sm:text-xs font-semibold tracking-wide
-					text-indigo-700 bg-indigo-50 border border-indigo-100
-					rounded-full shadow-sm">
-						<span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
-						<span>شركاؤنا في التمكين</span>
-						<span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
-					</span>
-					<span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
-				</div>
+                <div class="my-6 flex items-center justify-center">
+                    <span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
+                    <span class="inline-flex items-center justify-center gap-2 px-4 py-1.5 mx-auto mb-4
+                    text-[11px] sm:text-xs font-semibold tracking-wide
+                    text-indigo-700 bg-indigo-50 border border-indigo-100
+                    rounded-full shadow-sm">
+                        <span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                        <span>شركاؤنا في التمكين</span>
+                        <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+                    </span>
+                    <span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
+                </div>
 
                 <!-- شريط الشركاء المتحرك -->
                 <div class="partners-marquee mb-4">
@@ -336,9 +322,9 @@
                 </div>
     
                 <!-- فاصل بين الشركاء والشعار -->
-				<div class="my-4 flex justify-center">
-					<div class="h-px w-80 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
-				</div>
+                <div class="my-4 flex justify-center">
+                    <div class="h-px w-80 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></div>
+                </div>
     
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
                     تقييم مدى مواءمة
@@ -347,7 +333,7 @@
                     منشأتكم للأشخاص ذوي الإعاقة
                 </h1>
             </div>
-    		
+            
             <div class="space-y-4 sm:space-y-6">
                 <div>
                     <label class="block text-base sm:text-lg font-semibold text-gray-700 mb-1.5 sm:mb-2">
@@ -433,9 +419,6 @@
         <!-- Page 2: Survey -->
         <div id="surveyPage" class="form-card hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
             <div class="text-center mb-6 sm:mb-8">
-                <!-- <div class="mb-4 sm:mb-6"> -->
-                    <!-- <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png')] bg-center bg-contain bg-no-repeat"></div> -->
-                <!-- </div> -->
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
                     هل منشأتك مواءمة؟
                 </h1>
@@ -474,30 +457,27 @@
                     </button>
                 </div>
                 
-				<div id="thankYouMessage" class="hidden">
-					<div class="bg-green-100 border-2 border-green-400 rounded-xl p-4 sm:p-6 mb-3 sm:mb-4 text-center">
-						<div class="text-3xl sm:text-5xl mb-2 sm:mb-3">✅</div>
-						<h3 class="text-xl sm:text-2xl font-bold text-green-800 mb-1 sm:mb-2">
-							تم استلام بيانات منشأتك بنجاح
-						</h3>
-						<p class="text-sm sm:text-lg text-green-700">
-							تم إرسال بيانات الاستبيان إلى فريق مواءمة المنشآت، وسيتم التواصل معكم قريبًا عبر بيانات التواصل المسجلة.
-						</p>
-					</div>
-					<button onclick="showResults()"
-						class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
-						عرض النتائج التفصيلية 📊
-					</button>
-				</div>
+                <div id="thankYouMessage" class="hidden">
+                    <div class="bg-green-100 border-2 border-green-400 rounded-xl p-4 sm:p-6 mb-3 sm:mb-4 text-center">
+                        <div class="text-3xl sm:text-5xl mb-2 sm:mb-3">✅</div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-green-800 mb-1 sm:mb-2">
+                            تم استلام بيانات منشأتك بنجاح
+                        </h3>
+                        <p class="text-sm sm:text-lg text-green-700">
+                            تم إرسال بيانات الاستبيان إلى فريق مواءمة المنشآت، وسيتم التواصل معكم قريبًا عبر بيانات التواصل المسجلة.
+                        </p>
+                    </div>
+                    <button onclick="showResults()"
+                        class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
+                        عرض النتائج التفصيلية 📊
+                    </button>
+                </div>
 
             </div>
         </div>
 
         <!-- Page 3: Results -->
         <div id="resultsPage" class="form-card hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
-            <!-- <div class="mb-4 sm:mb-6"> -->
-                <!-- <div class="mx-auto w-40 h-24 sm:w-60 sm:h-40 rounded-lg bg-[url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png')] bg-center bg-contain bg-no-repeat"></div> -->
-            <!-- </div> -->
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 text-gray-800">
                 نتائج استبيان 🎯
             </h1>
@@ -561,10 +541,10 @@
             msg.textContent = message;
 
             if (type === 'success') {
-                toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-green-600 text:white";
+                toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-green-600 text-white";
                 icon.textContent = '';
             } else if (type === 'error') {
-                toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items:center gap-2 bg-red-600 text-white";
+                toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-red-600 text-white";
                 icon.textContent = '';
             } else {
                 toast.className = "pointer-events-auto max-w-xs sm:max-w-sm px-4 py-3 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-2 bg-indigo-600 text-white";
@@ -577,25 +557,16 @@
             toastTimeout = setTimeout(hideToast, 3000);
         }
 
-        <!-- document.addEventListener('DOMContentLoaded', function () { -->
-          <!-- const track = document.querySelector('.partners-marquee-track'); -->
-          <!-- if (!track) return; -->
-        
-          <!-- // نكرر محتوى الشريط مرة ثانية فقط برمجياً -->
-          <!-- track.innerHTML += track.innerHTML; -->
-        <!-- }); -->
+        document.addEventListener('DOMContentLoaded', function () {
+            const track = document.querySelector('.partners-marquee-track');
+            if (track) {
+                // نكرر محتوى الشريط مرة ثانية فقط برمجياً
+                track.innerHTML += track.innerHTML;
+            }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const track = document.querySelector('.partners-marquee-track');
-    if (track) {
-        // نكرر محتوى الشريط مرة ثانية فقط برمجياً
-        track.innerHTML += track.innerHTML;
-    }
-
-    // تعبئة الحقول تلقائياً عند فتح الصفحة
-    autoFillInfo();
-});
-
+            // تعبئة الحقول تلقائياً عند فتح الصفحة
+            autoFillInfo();
+        });
 
         function hideToast() {
             var wrapper = document.getElementById('toastWrapper');
@@ -883,14 +854,14 @@ document.addEventListener('DOMContentLoaded', function () {
             return text;
         }
 
-		function autoFillInfo() {
-			// عدّل القيم هذي على كيفك
-			document.getElementById('facilityName').value  = 'مركز تمهير للتدريب';
-			document.getElementById('email').value         = 'info@example.com';
-			document.getElementById('phone').value         = '0500000000';
-			document.getElementById('region').value        = 'الرياض';
-			document.getElementById('facilitySize').value  = 'متوسطة';
-		}
+        function autoFillInfo() {
+            // عدّل القيم هذي على كيفك
+            document.getElementById('facilityName').value  = 'مركز تمهير للتدريب';
+            document.getElementById('email').value         = 'info@example.com';
+            document.getElementById('phone').value         = '0500000000';
+            document.getElementById('region').value        = 'الرياض';
+            document.getElementById('facilitySize').value  = 'متوسطة';
+        }
 
         function showResults() {
             var results = calculateResults();
@@ -927,19 +898,19 @@ document.addEventListener('DOMContentLoaded', function () {
             var sendBtns = document.getElementById('sendBtns');
             sendBtns.classList.add('opacity-60');
 
-			var templateParams = {
-				subject: 'نتائج استبيان مواءمة المنشآت - ' + userInfo.name,
-				title: 'استبيان مواءمة المنشآت',
-				name: userInfo.name,
-				email: userInfo.email,
-				message: body,
-				total_score: results.totalScore + ' / ' + results.maxScore,
-				total_percent: results.percentage + '%',
-				level_text: results.level,
-				level_emoji: results.emoji,
-				is_results: true,
-				is_consultation: false
-			};
+            var templateParams = {
+                subject: 'نتائج استبيان مواءمة المنشآت - ' + userInfo.name,
+                title: 'استبيان مواءمة المنشآت',
+                name: userInfo.name,
+                email: userInfo.email,
+                message: body,
+                total_score: results.totalScore + ' / ' + results.maxScore,
+                total_percent: results.percentage + '%',
+                level_text: results.level,
+                level_emoji: results.emoji,
+                is_results: true,
+                is_consultation: false
+            };
 
             emailjs.send("service_v02rb8j", "template_tthd4br", templateParams)
                 .then(function(response) {
@@ -1005,19 +976,19 @@ document.addEventListener('DOMContentLoaded', function () {
             body += 'المنطقة: ' + (userInfo.region || '') + '\n';
             body += 'حجم المنشأة: ' + (userInfo.size || '') + '\n';
 
-			var templateParams = {
-				subject: 'طلب استشارة شهادة مواءمة - ' + userInfo.name,
-				title: 'طلب استشارة مواءمة',
-				name: userInfo.name,
-				email: userInfo.email,
-				message: body,
-				total_score: '',
-				total_percent: '',
-				level_text: '',
-				level_emoji: '',
-				is_results: false,
-				is_consultation: true
-			};
+            var templateParams = {
+                subject: 'طلب استشارة شهادة مواءمة - ' + userInfo.name,
+                title: 'طلب استشارة مواءمة',
+                name: userInfo.name,
+                email: userInfo.email,
+                message: body,
+                total_score: '',
+                total_percent: '',
+                level_text: '',
+                level_emoji: '',
+                is_results: false,
+                is_consultation: true
+            };
 
             // الإرسال يتم في الخلفية
             emailjs.send("service_v02rb8j", "template_tthd4br", templateParams)

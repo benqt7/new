@@ -17,23 +17,6 @@
     </script>
 
     <style>
-        /* منع التحديد في كل الصفحة */
-        body {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        /* السماح بالتحديد داخل الحقول فقط */
-        input,
-        textarea,
-        select {
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
-        }
 
         * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
@@ -126,6 +109,28 @@
             inset: 0;
             z-index: 10;       /* فوق الأزرار والكروت */
         }
+		
+		.btn-next {
+			background-image: linear-gradient(to right, #37a1a1, #0c2863e8);
+		}
+		
+		.btn-next:hover {
+			filter: brightness(1.06);
+		}
+		
+				.progress-gradient {
+			background-image: linear-gradient(to right, #37a1a1, #0c2863e8);
+		}
+		
+		.section-title {
+			color: #000000;              /* لون النص */
+			border-bottom: 2px solid #000; /* لون الحد السفلي */
+		}
+
+		.badge-gradient {
+			background-image: linear-gradient(to right, #37a1a1, #0c2863e8);
+		}
+
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -185,9 +190,9 @@
                 </div>
             </div>
 
-            <p class="text-xs sm:text-sm text-gray-600 mb-3">
-                سيتم التواصل معكم قريبًا لاستكمال إجراءات الاستشارة وشهادة المواءمة.
-            </p>
+            <!-- <p class="text-xs sm:text-sm text-gray-600 mb-3"> -->
+                <!-- سيتم التواصل معكم قريبًا لاستكمال إجراءات الاستشارة وشهادة المواءمة. -->
+            <!-- </p> -->
 
             <button type="button"
                     onclick="closeContactModal()"
@@ -205,18 +210,20 @@
             <div class="text-center mb-6 sm:mb-8">
     
                 <!-- عنوان الشركاء -->
-                <div class="my-6 flex items-center justify-center">
-                    <span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
-                    <span class="inline-flex items-center justify-center gap-2 px-4 py-1.5 mx-auto mb-4
-                    text-[11px] sm:text-xs font-semibold tracking-wide
-                    text-indigo-700 bg-indigo-50 border border-indigo-100
-                    rounded-full shadow-sm">
-                        <span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
-                        <span>شركاؤنا في التمكين</span>
-                        <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
-                    </span>
-                    <span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
-                </div>
+				<div class="my-6 flex items-center justify-center">
+					<span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
+				
+					<span class="inline-flex items-center justify-center gap-2 px-4 py-1.5 mx-auto mb-4
+						text-[11px] sm:text-xs font-semibold tracking-wide
+						text-white badge-gradient
+						rounded-full shadow-sm">
+						<span class="h-1.5 w-1.5 rounded-full bg-white/80"></span>
+						<span>شركاء النجاح</span>
+						<span class="h-1.5 w-1.5 rounded-full bg-white/80"></span>
+					</span>
+				
+					<span class="inline-block h-[1px] flex-1 max-w-xs bg-gray-300"></span>
+				</div>
 
                 <!-- شريط الشركاء المتحرك -->
                 <div class="partners-marquee mb-4">
@@ -317,6 +324,12 @@
                             <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/YCLbq0dx/bnaʾ.png')] bg-center bg-contain bg-no-repeat
                                         cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
                         </div>
+						
+						<!-- الوبكو -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/tRB3nt5z/lwqw-alwbkw.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
     
                     </div>
                 </div>
@@ -409,10 +422,10 @@
                     يرجى تعبئة جميع الحقول المطلوبة
                 </div>
     
-                <button onclick="validateAndProceed()"
-                    class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3.5 sm:py-4 rounded-xl text-base sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
-                    التالي
-                </button>
+				<button onclick="validateAndProceed()"
+					class="btn-next w-full text-white py-3.5 sm:py-4 rounded-xl text-base sm:text-lg font-semibold transition-all shadow-lg">
+					التالي
+				</button>
             </div>
         </div>
 
@@ -440,10 +453,12 @@
                     </span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2.5 sm:h-3 mb-3 sm:mb-4">
-                    <div id="progressBar"
-                        class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2.5 sm:h-3 rounded-full transition-all"
-                        style="width: 0%"></div>
-                </div>
+					<div id="progressBar"
+						class="progress-gradient h-2.5 sm:h-3 rounded-full transition-all"
+						style="width: 0%">
+					</div>
+				</div>
+
                 
                 <button id="incompleteBtn"
                     class="w-full py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-bold transition-all bg-gray-300 text-gray-500 cursor-not-allowed">
@@ -451,26 +466,32 @@
                 </button>
                 
                 <div id="sendBtns" class="hidden mt-2">
-                    <button onclick="sendEmailWithResults()"
-                        class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
-                        إرسال 📨
-                    </button>
+                    <!-- <button onclick="sendEmailWithResults()" -->
+                        <!-- class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg"> -->
+                        <!-- إرسال 📨 -->
+                    <!-- </button>	 -->
+
+					<button onclick="sendEmailWithResults()"
+						class="btn-next w-full text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold transition-all shadow-lg">
+						إرسال 📨
+					</button>
                 </div>
                 
                 <div id="thankYouMessage" class="hidden">
-                    <div class="bg-green-100 border-2 border-green-400 rounded-xl p-4 sm:p-6 mb-3 sm:mb-4 text-center">
-                        <div class="text-3xl sm:text-5xl mb-2 sm:mb-3">✅</div>
-                        <h3 class="text-xl sm:text-2xl font-bold text-green-800 mb-1 sm:mb-2">
-                            تم استلام بيانات منشأتك بنجاح
-                        </h3>
-                        <p class="text-sm sm:text-lg text-green-700">
-                            تم إرسال بيانات الاستبيان إلى فريق مواءمة المنشآت، وسيتم التواصل معكم قريبًا عبر بيانات التواصل المسجلة.
-                        </p>
-                    </div>
-                    <button onclick="showResults()"
-                        class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
-                        عرض النتائج التفصيلية 📊
-                    </button>
+
+				<button onclick="showResults()"
+					class="btn-next w-full text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold transition-all shadow-lg">
+					
+						<div class="text-3xl sm:text-5xl mb-2 sm:mb-3">✅</div>
+						<h3 class="text-xl sm:text-2xl font-bold text-white-800 mb-1 sm:mb-2">
+							تم استلام بيانات منشأتك بنجاح
+						</h3>
+						<!-- <p class="text-sm sm:text-lg text-green-700"> -->
+							<!-- تم إرسال بيانات الاستبيان إلى فريق مواءمة المنشآت، وسيتم التواصل معكم قريبًا عبر بيانات التواصل المسجلة. -->
+						<!-- </p> -->
+					عرض النتائج التفصيلية 📊
+				</button>
+
                 </div>
 
             </div>
@@ -518,12 +539,16 @@
                     class="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-sm sm:text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg">
                     لطلب الاستشارة اضغط هنا  📞
                 </button>
+				
+				<!-- <button id="consultationBtn" onclick="sendConsultationRequest()" -->
+					<!-- class="btn-next text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl text-sm sm:text-lg font-semibold transition-all shadow-lg"> -->
+					<!-- لطلب الاستشارة اضغط هنا  📞 -->
+				<!-- </button> -->
             </div>
-
-            <button onclick="resetSurvey()"
-                class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg">
-                إعادة الاستبيان 🔄
-            </button>
+				<button onclick="resetSurvey()"
+					class="btn-next w-full text-white py-3 sm:py-4 rounded-xl text-sm sm:text-lg font-semibold transition-all shadow-lg">
+					إعادة الاستبيان 🔄
+				</button>
         </div>
 
     </div> <!-- نهاية الـ container -->
@@ -589,7 +614,7 @@
                 "هل حققت المنشأة نسبة التوظيف المطلوبة (موظف واحد من ذوي الإعاقة لكل 10 موظفين سعوديين)؟"
             ]},
             { title: "خامسًا: المعرفة والوعي", items: [
-                "هل يوجد في المنشأة ممثل أو مسؤول مختص بالمواءمة؟",
+                "هل قامت المنشأة بتعيين مسؤول مختص لمتابعة وتنفيذ معايير المواءمة للأشخاص ذوي الإعاقة؟",
                 "هل توفر المنشأة فرص تطوير وترقية عادلة للأشخاص ذوي الإعاقة؟",
                 "هل يتم تدريب الموظفين على كيفية التعامل مع الأشخاص ذوي الإعاقة؟"
             ]},
@@ -685,7 +710,7 @@
                 sectionDiv.className = 'mb-6 sm:mb-8 bg-gray-50 rounded-xl p-4 sm:p-6 section-card';
                 
                 var title = document.createElement('h2');
-                title.className = 'text-lg sm:text-2xl font-bold mb-3 sm:mb-4 text-indigo-700 border-b-2 border-indigo-200 pb-1.5 sm:pb-2';
+                title.className = 'section-title text-lg sm:text-2xl font-bold mb-3 sm:mb-4 pb-1.5 sm:pb-2';
                 title.textContent = section.title;
                 sectionDiv.appendChild(title);
 
@@ -998,7 +1023,7 @@
 
                     // تحديث نصوص المودال بعد نجاح الإرسال
                     document.getElementById('consultationTitle').textContent = 'تم إرسال طلب الاستشارة ✅';
-                    document.getElementById('consultationDesc').textContent  = 'تم استلام طلب الاستشارة، وهذه هي بيانات منشأتك:';
+                    document.getElementById('consultationDesc').textContent  = 'تتم إرسال بيانات الاستبيان إلى فريق مواءمة المنشآت، وسيتم التواصل معكم قريبًا عبر بيانات التواصل المسجلة:';
                 }, function(error) {
                     console.error("Consultation Email FAILED...", error);
                     alert("حصل خطأ أثناء إرسال طلب الاستشارة عبر EmailJS.\n\nتفاصيل: " + (error.text || ''));

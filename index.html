@@ -131,6 +131,27 @@
 			background-image: linear-gradient(to right, #37a1a1, #0c2863e8);
 		}
 
+
+        /* ===== Top Dark Banner (مثل الصورة الثانية) ===== */
+        .top-banner-wrap { position: relative; z-index: 20; }
+        .top-banner {
+            background: linear-gradient(90deg, #0b1220 0%, #111827 55%, #0b1220 100%);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
+        }
+		.top-banner{
+			border-bottom-left-radius: 0 !important;
+			border-bottom-right-radius: 0 !important;
+		}
+        .top-banner-title {
+            color: #86efac;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+        }
+        .top-banner-hint {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
     </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -207,6 +228,21 @@
             
         <!-- Page 1: Personal Info -->
         <div id="infoPage" class="form-card bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8 relative overflow-hidden">
+            <!-- Top Dark Banner -->
+            <div class="top-banner-wrap -mx-4 sm:-mx-6 md:-mx-8 -mt-4 sm:-mt-6 md:-mt-8 mb-5 sm:mb-7">
+                <div class="top-banner rounded-2xl sm:rounded-3xl px-4 py-4 sm:px-6 sm:py-6">
+                    <div class="flex items-center justify-center gap-2 mb-3">
+                        <span class="text-xl sm:text-2xl">⚖️</span>
+                        <h2 class="top-banner-title text-lg sm:text-2xl font-extrabold tracking-wide">
+                            تقييم مدى مواءمة منشأتكم
+                        </h2>
+                    </div>
+                    <div class="top-banner-hint rounded-xl px-4 py-3 text-slate-200 text-sm sm:text-base text-center">
+                        ابدأ بتعبئة بيانات المنشأة ثم اضغط <span class="font-bold">التالي</span>.
+                    </div>
+                </div>
+            </div>
+
             <div class="text-center mb-6 sm:mb-8">
     
                 <!-- عنوان الشركاء -->
@@ -431,6 +467,21 @@
 
         <!-- Page 2: Survey -->
         <div id="surveyPage" class="form-card hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+            <!-- Top Dark Banner -->
+            <div class="top-banner-wrap -mx-4 sm:-mx-6 md:-mx-8 -mt-4 sm:-mt-6 md:-mt-8 mb-5 sm:mb-7">
+                <div class="top-banner rounded-2xl sm:rounded-3xl px-4 py-4 sm:px-6 sm:py-6">
+                    <div class="flex items-center justify-center gap-2 mb-3">
+                        <span class="text-xl sm:text-2xl">📝</span>
+                        <h2 class="top-banner-title text-lg sm:text-2xl font-extrabold tracking-wide">
+                            استبيان المواءمة
+                        </h2>
+                    </div>
+                    <div class="top-banner-hint rounded-xl px-4 py-3 text-slate-200 text-sm sm:text-base text-center">
+                        اختر الإجابات التي تعكس وضع منشأتكم الحالي بدقة.
+                    </div>
+                </div>
+            </div>
+
             <div class="text-center mb-6 sm:mb-8">
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-800">
                     هل منشأتك مواءمة؟
@@ -499,6 +550,21 @@
 
         <!-- Page 3: Results -->
         <div id="resultsPage" class="form-card hidden bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8">
+            <!-- Top Dark Banner -->
+            <div class="top-banner-wrap -mx-4 sm:-mx-6 md:-mx-8 -mt-4 sm:-mt-6 md:-mt-8 mb-5 sm:mb-7">
+                <div class="top-banner rounded-2xl sm:rounded-3xl px-4 py-4 sm:px-6 sm:py-6">
+                    <div class="flex items-center justify-center gap-2 mb-3">
+                        <span class="text-xl sm:text-2xl">📊</span>
+                        <h2 class="top-banner-title text-lg sm:text-2xl font-extrabold tracking-wide">
+                            نتائج الاستبيان
+                        </h2>
+                    </div>
+                    <div class="top-banner-hint rounded-xl px-4 py-3 text-slate-200 text-sm sm:text-base text-center">
+                        هنا تظهر النتيجة الإجمالية والتفاصيل حسب الأقسام.
+                    </div>
+                </div>
+            </div>
+
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 sm:mb-6 text-gray-800">
                 نتائج استبيان 🎯
             </h1>

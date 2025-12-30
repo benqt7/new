@@ -94,7 +94,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            <!-- background: url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png') no-repeat center center; -->
+            /* background: url('https://i.postimg.cc/43VmrJLc/shʿartmhyr.png') no-repeat center center; */
             background-size: 420px auto;
             opacity: 0.19;
             pointer-events: none;
@@ -147,6 +147,130 @@
         .top-banner-hint {
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* ===== Gauge (شكل الصورة الثانية) ===== */
+        .levelCardModern {
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+        }
+
+        /* تكبير القوس */
+        .gaugeWrap {
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gauge {
+            position: relative;
+            width: min(420px, 100%);
+            height: 240px;
+        }
+
+        .gaugeSvg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .gaugeBg {
+            stroke: #e5e7eb;
+            stroke-width: 20;
+            fill: none;
+            stroke-linecap: round;
+        }
+
+        .gaugeFg {
+            stroke-width: 20;
+            fill: none;
+            stroke-linecap: round;
+            stroke-dasharray: 1;
+            stroke-dashoffset: 1;
+            transition: stroke-dashoffset 700ms ease;
+        }
+
+        .gaugeInnerShadow {
+            stroke: rgba(15, 23, 42, 0.08);
+            stroke-width: 30;
+            fill: none;
+            stroke-linecap: round;
+            filter: blur(0.2px);
+            opacity: 0.25;
+        }
+
+        /* تلوين القوس حسب نوعه */
+        .gaugeFgLevel { stroke: url(#gaugeGradLevel); }
+        .gaugeFgTotal { stroke: url(#gaugeGradTotal); }
+
+        .gaugeCenter {
+            position: absolute;
+            left: 50%;
+            top: 62%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .gaugeScore {
+            font-weight: 900;
+            color: #0f172a;
+            font-size: clamp(22px, 4.2vw, 40px);
+            line-height: 1;
+            direction: ltr;
+            unicode-bidi: isolate;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 10px;
+            white-space: nowrap;
+            margin-bottom: 10px;
+        }
+
+        .gaugeScore small,
+        .gaugeSep {
+            font-size: clamp(18px, 3vw, 30px);
+            font-weight: 900;
+            opacity: 0.9;
+        }
+
+		/* بدل بلوك .gaugeBadge الحالي بالكامل */
+		.gaugeBadge{
+		  display:inline-flex;
+		  align-items:center;
+		  justify-content:center;
+
+		  height: 46px;              /* يعطيه شكل “مستطيل” ثابت */
+		  padding: 0 34px;           /* عرض محترم */
+		  min-width: 150px;          /* يخلي "إجمالي" و "متوسط" نفس المقاس تقريباً */
+
+		  border-radius: 14px;       /* هذا المهم: مو 999px */
+		  font-weight: 900;
+		  font-size: clamp(16px, 2.6vw, 22px);
+		  color:#fff;
+
+		  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
+		}
+
+        .gaugeBadge.is-excellent { background: #4f46e5; } /* ممتاز */
+        .gaugeBadge.is-verygood  { background: #16a34a; } /* جيد جدًا */
+        .gaugeBadge.is-average   { background: #f59e0b; } /* متوسط */
+        .gaugeBadge.is-weak      { background: #ef4444; } /* ضعيف */
+        .gaugeBadge.is-total     { background: #2563eb; } /* الإجمالي */
+
+        .gaugeDesc {
+            font-weight: 900;
+            color: #0f172a;
+            font-size: clamp(18px, 3.2vw, 26px);
+            line-height: 1.25;
+            text-align: center;
+            margin-top: -6px;
         }
     </style>
 </head>
@@ -541,29 +665,81 @@
                 نتائج استبيان 🎯
             </h1>
 
+            <!-- ✅ كرتين نفس فكرة القوس + بدون نسبة مئوية في الإجمالي -->
             <div class="grid gap-4 sm:gap-6 md:grid-cols-2 mb-6 sm:mb-8">
-                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-4 sm:p-6 text-white text-center">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2">النتيجة الإجمالية</h3>
-                    <div class="text-3xl sm:text-5xl font-bold mb-1.5 sm:mb-2">
-                        <span id="totalScore">0</span> / 36
-                    </div>
-                    <div class="text-xl sm:text-2xl">
-                        <span id="totalPercent">0</span>%
+
+                <!-- تقييم المنشأة (Gauge) -->
+                <div id="levelCard" class="levelCardModern rounded-xl p-4 sm:p-6 text-center">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-900">تقييم المنشأة</h3>
+
+                    <div class="gaugeWrap">
+                        <div class="gauge">
+                            <svg class="gaugeSvg" viewBox="0 0 200 140" aria-hidden="true">
+                                <defs>
+                                    <!-- برتقالي -> أخضر -->
+                                    <linearGradient id="gaugeGradLevel" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#f59e0b"/>
+                                        <stop offset="55%" stop-color="#fbbf24"/>
+                                        <stop offset="100%" stop-color="#22c55e"/>
+                                    </linearGradient>
+                                </defs>
+
+                                <path class="gaugeInnerShadow" d="M 20 115 A 80 80 0 0 1 180 115"></path>
+                                <path class="gaugeBg" d="M 20 115 A 80 80 0 0 1 180 115"></path>
+                                <path id="gaugeFg" class="gaugeFg gaugeFgLevel" d="M 20 115 A 80 80 0 0 1 180 115"></path>
+                            </svg>
+
+                            <div class="gaugeCenter">
+                                <div class="gaugeScore" dir="ltr">
+                                    <span id="gaugeValue">0</span>
+                                    <span class="gaugeSep">/</span>
+                                    <small id="gaugeMax">100</small>
+                                </div>
+
+                                <div id="gaugeBadge" class="gaugeBadge is-average">-</div>
+                            </div>
+                        </div>
+
+                        <div id="gaugeDesc" class="gaugeDesc">-</div>
                     </div>
                 </div>
 
-                <!-- ✅ تعديل تقييم المنشأة: الكلمة تحت العنوان -->
-                <div id="levelCard" class="rounded-xl p-4 sm:p-6 text-white text-center">
-                    <h3 class="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2">تقييم المنشأة</h3>
+                <!-- النتيجة الإجمالية (Gauge) - بدون % -->
+                <div id="totalCard" class="levelCardModern rounded-xl p-4 sm:p-6 text-center">
+                    <h3 class="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-900">النتيجة الإجمالية</h3>
 
-                    <div class="text-3xl sm:text-4xl font-extrabold mb-1">
-                        <span id="levelWord"></span>
-                    </div>
+                    <div class="gaugeWrap">
+                        <div class="gauge">
+                            <svg class="gaugeSvg" viewBox="0 0 200 140" aria-hidden="true">
+                                <defs>
+                                    <!-- أزرق -> بنفسجي -->
+                                    <linearGradient id="gaugeGradTotal" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#2563eb"/>
+                                        <stop offset="60%" stop-color="#7c3aed"/>
+                                        <stop offset="100%" stop-color="#9333ea"/>
+                                    </linearGradient>
+                                </defs>
 
-                    <div class="text-sm sm:text-lg opacity-95">
-                        <span id="levelText"></span>
+                                <path class="gaugeInnerShadow" d="M 20 115 A 80 80 0 0 1 180 115"></path>
+                                <path class="gaugeBg" d="M 20 115 A 80 80 0 0 1 180 115"></path>
+                                <path id="totalGaugeFg" class="gaugeFg gaugeFgTotal" d="M 20 115 A 80 80 0 0 1 180 115"></path>
+                            </svg>
+
+                            <div class="gaugeCenter">
+                                <div class="gaugeScore" dir="ltr">
+                                    <span id="totalPointsValue">0</span>
+                                    <span class="gaugeSep">/</span>
+                                    <small id="totalPointsMax">0</small>
+                                </div>
+
+                                <div id="totalBadge" class="gaugeBadge is-total">إجمالي</div>
+                            </div>
+                        </div>
+
+                        <div class="gaugeDesc">إجمالي نقاط الاستبيان</div>
                     </div>
                 </div>
+
             </div>
 
             <div class="bg-blue-50 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
@@ -619,6 +795,35 @@
             toastTimeout = setTimeout(hideToast, 3000);
         }
 
+        function hideToast() {
+            var wrapper = document.getElementById('toastWrapper');
+            wrapper.classList.add('hidden');
+        }
+
+        // ✅ تحديث القوس حسب ID
+        function updateGaugeById(fgId, value) {
+            var fg = document.getElementById(fgId);
+            if (!fg) return;
+
+            var v = Math.max(0, Math.min(100, Number(value) || 0));
+            var len = fg.getTotalLength();
+
+            fg.style.strokeDasharray = String(len);
+            fg.style.strokeDashoffset = String(len - (len * v / 100));
+        }
+
+        function applyGaugeTheme(levelWord) {
+            var badge = document.getElementById('gaugeBadge');
+            if (!badge) return;
+
+            badge.className = 'gaugeBadge';
+
+            if (levelWord === 'ممتاز') badge.classList.add('is-excellent');
+            else if (levelWord === 'جيد جدًا') badge.classList.add('is-verygood');
+            else if (levelWord === 'متوسط') badge.classList.add('is-average');
+            else badge.classList.add('is-weak');
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const track = document.querySelector('.partners-marquee-track');
             if (track) {
@@ -628,12 +833,11 @@
 
             // تعبئة الحقول تلقائياً عند فتح الصفحة
             autoFillInfo();
-        });
 
-        function hideToast() {
-            var wrapper = document.getElementById('toastWrapper');
-            wrapper.classList.add('hidden');
-        }
+            // تصفير الأقواس
+            updateGaugeById('gaugeFg', 0);
+            updateGaugeById('totalGaugeFg', 0);
+        });
 
         // ===== بيانات الاستبيان =====
         var sections = [
@@ -692,6 +896,9 @@
         var responses = {};
         var totalItems = 0;
         var consultationSent = false; // لمنع تكرار طلب الاستشارة لكل استبيان
+
+        // ✅ تحكم إرسال التقييم للإيميل (من الكود فقط)
+        var ENABLE_RESULTS_EMAIL = true; // true = يرسل / false = يعطّل إرسال التقييم للإيميل
 
         for (var i = 0; i < sections.length; i++) {
             totalItems += sections[i].items.length;
@@ -842,8 +1049,18 @@
 
             if (count === totalItems) {
                 document.getElementById('incompleteBtn').classList.add('hidden');
-                document.getElementById('sendBtns').classList.remove('hidden');
-                showToast('اكتملت جميع الأسئلة ✅', 'info');
+
+                // ✅ لو الإرسال مفعّل: يظهر زر إرسال
+                // ✅ لو الإرسال معطّل: يظهر زر عرض النتائج مباشرة
+                if (ENABLE_RESULTS_EMAIL) {
+                    document.getElementById('sendBtns').classList.remove('hidden');
+                    document.getElementById('thankYouMessage').classList.add('hidden');
+                    showToast('اكتملت جميع الأسئلة ✅', 'info');
+                } else {
+                    document.getElementById('sendBtns').classList.add('hidden');
+                    document.getElementById('thankYouMessage').classList.remove('hidden');
+                    showToast('اكتملت جميع الأسئلة ✅ (إرسال البريد متوقف من الكود)', 'info');
+                }
             }
         }
 
@@ -878,29 +1095,24 @@
                 });
             }
 
-            var maxScore = totalItems * 3;
-            var percentageAll = Math.round((totalScore / maxScore) * 100);
+            var maxScore = totalItems * 3;          // ✅ 57
+            var percentageAll = Math.round((totalScore / maxScore) * 100); // ✅ نسبة من 100
 
             var levelWord = '';
             var levelText = '';
-            var color = '#3b82f6';
 
             if (percentageAll >= 85) {
                 levelWord = "ممتاز";
                 levelText = "منشأتك متوافقة بدرجة عالية";
-                color = "#3b82f6";
             } else if (percentageAll >= 70) {
                 levelWord = "جيد جدًا";
                 levelText = "بعض التحسينات مطلوبة";
-                color = "#10b981";
             } else if (percentageAll >= 50) {
                 levelWord = "متوسط";
                 levelText = "تحتاج إلى تحسينات واضحة";
-                color = "#f59e0b";
             } else {
                 levelWord = "ضعيف";
                 levelText = "ينصح بإجراء خطة مواءمة شاملة";
-                color = "#ef4444";
             }
 
             return {
@@ -909,7 +1121,6 @@
                 percentage: percentageAll,
                 levelWord: levelWord,
                 levelText: levelText,
-                color: color,
                 sectionScores: sectionScores
             };
         }
@@ -966,13 +1177,22 @@
             document.getElementById('surveyPage').classList.add('hidden');
             document.getElementById('resultsPage').classList.remove('hidden');
 
-            document.getElementById('totalScore').textContent = results.totalScore;
-            document.getElementById('totalPercent').textContent = results.percentage;
+            // ✅ تقييم المنشأة (نسبة/100)
+            if (document.getElementById('gaugeValue')) document.getElementById('gaugeValue').textContent = results.percentage;
+            if (document.getElementById('gaugeMax')) document.getElementById('gaugeMax').textContent = '100';
+            if (document.getElementById('gaugeBadge')) document.getElementById('gaugeBadge').textContent = results.levelWord;
+            if (document.getElementById('gaugeDesc')) document.getElementById('gaugeDesc').textContent = results.levelText;
 
-            // ✅ الكلمة تحت عنوان تقييم المنشأة
-            document.getElementById('levelWord').textContent = results.levelWord;
-            document.getElementById('levelText').textContent = results.levelText;
-            document.getElementById('levelCard').style.backgroundColor = results.color;
+            applyGaugeTheme(results.levelWord);
+            updateGaugeById('gaugeFg', results.percentage);
+
+            // ✅ النتيجة الإجمالية (نقاط/57) بدون %
+            // ✅ هنا ينحل خطأ 36/19 (الـ 19 كانت عدد الأسئلة)
+            if (document.getElementById('totalPointsValue')) document.getElementById('totalPointsValue').textContent = results.totalScore;
+            if (document.getElementById('totalPointsMax')) document.getElementById('totalPointsMax').textContent = results.maxScore;
+
+            // تعبئة القوس بحسب نسبة الإجمالي (بدون عرض نسبة)
+            updateGaugeById('totalGaugeFg', results.percentage);
 
             var detailsDiv = document.getElementById('sectionDetails');
             detailsDiv.innerHTML = '';
@@ -990,7 +1210,68 @@
             showToast('تم عرض النتائج التفصيلية 🎯', 'success');
         }
 
+        
+        // =========================
+        // EmailJS Templates (Email)
+        // =========================
+        // ✅ Template النتائج (نتائج الاستبيان)
+        const EMAILJS_SERVICE_ID = "service_v02rb8j";
+        const EMAILJS_TEMPLATE_RESULTS_ID = "template_tthd4br"; // غيّرها إذا سويت قالب نتائج جديد
+        // ✅ Template الاستشارة (طلب استشارة)
+        const EMAILJS_TEMPLATE_CONSULTATION_ID = "template_gmjtovj"; // حط ID قالب الاستشارة هنا
+
+        function _clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+
+        function levelEmoji(levelWord){
+            if (levelWord === "ممتاز") return "🏆";
+            if (levelWord === "جيد جدًا") return "✅";
+            if (levelWord === "متوسط") return "⚠️";
+            return "❌";
+        }
+
+        function levelColor(levelWord){
+            if (levelWord === "ممتاز") return "#22c55e";
+            if (levelWord === "جيد جدًا") return "#16a34a";
+            if (levelWord === "متوسط") return "#f59e0b";
+            return "#ef4444";
+        }
+
+        // توليد صورة Gauge نصف دائرة (PNG) عشان يشتغل في Gmail/Outlook بدون خراب
+        function makeHalfGaugeUrl(percent, fillColor) {
+            percent = _clamp(Number(percent) || 0, 0, 100);
+
+            const cfg = {
+                type: "doughnut",
+                data: {
+                    datasets: [{
+                        data: [percent, 100 - percent],
+                        backgroundColor: [fillColor, "#e5e7eb"],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    rotation: -Math.PI,
+                    circumference: Math.PI,
+                    cutout: "72%",
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } }
+                }
+            };
+
+            return "https://quickchart.io/chart?c=" + encodeURIComponent(JSON.stringify(cfg)) +
+                "&w=480&h=280&bkg=transparent&f=png&devicePixelRatio=1";
+        }
+
+    
         function sendEmailWithResults() {
+
+            // ✅ حماية: لو الإرسال مقفّل من الكود
+            if (!ENABLE_RESULTS_EMAIL) {
+                showToast('إرسال التقييم عبر البريد متوقف من الكود', 'info');
+                document.getElementById('sendBtns').classList.add('hidden');
+                document.getElementById('thankYouMessage').classList.remove('hidden');
+                return;
+            }
+
             var results = calculateResults();
             var body = buildSurveyText(results);
 
@@ -999,19 +1280,24 @@
 
             var templateParams = {
                 subject: 'نتائج استبيان مواءمة المنشآت - ' + userInfo.name,
-                title: 'استبيان مواءمة المنشآت',
                 name: userInfo.name,
                 email: userInfo.email,
+                phone: userInfo.phone,
+                region: userInfo.region,
+                size: userInfo.size,
                 message: body,
+
                 total_score: results.totalScore + ' / ' + results.maxScore,
-                total_percent: results.percentage + '%',
-                level_text: results.levelWord + ' - ' + results.levelText,
-                level_emoji: '',
-                is_results: true,
-                is_consultation: false
+                level_score: Math.round(results.percentage) + ' / 100',
+                level_short: results.levelWord,
+                level_note: results.levelText,
+                level_emoji: levelEmoji(results.levelWord),
+
+                total_gauge_url: makeHalfGaugeUrl(results.percentage, "#7c3aed"),
+                level_gauge_url: makeHalfGaugeUrl(results.percentage, levelColor(results.levelWord))
             };
 
-            emailjs.send("service_v02rb8j", "template_tthd4br", templateParams)
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_RESULTS_ID, templateParams)
                 .then(function(response) {
                     console.log("EmailJS SUCCESS!", response.status, response.text);
                     sendBtns.classList.add('hidden');
@@ -1077,20 +1363,27 @@
 
             var templateParams = {
                 subject: 'طلب استشارة شهادة مواءمة - ' + userInfo.name,
-                title: 'طلب استشارة مواءمة',
                 name: userInfo.name,
                 email: userInfo.email,
-                message: body,
-                total_score: '',
-                total_percent: '',
-                level_text: '',
-                level_emoji: '',
-                is_results: false,
-                is_consultation: true
+                phone: userInfo.phone,
+                region: userInfo.region,
+                size: userInfo.size,
+                message: body
             };
 
+            // ✅ لازم تسوي قالب EmailJS مستقل للاستشارة وتحط ID هنا
+            if (EMAILJS_TEMPLATE_CONSULTATION_ID === "PUT_CONSULT_TEMPLATE_ID_HERE") {
+                showToast('حط Template ID الخاص بالاستشارة داخل index.html (EMAILJS_TEMPLATE_CONSULTATION_ID)', 'info');
+                consultationSent = false;
+                if (btn) {
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-60', 'cursor-not-allowed');
+                }
+                return;
+            }
+
             // الإرسال يتم في الخلفية
-            emailjs.send("service_v02rb8j", "template_tthd4br", templateParams)
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CONSULTATION_ID, templateParams)
                 .then(function(response) {
                     console.log("Consultation Email SUCCESS!", response.status, response.text);
                     showToast('تم إرسال طلب الاستشارة بنجاح ✅', 'success');
@@ -1144,6 +1437,17 @@
             document.getElementById('sendBtns').classList.add('hidden');
             document.getElementById('sendBtns').classList.remove('opacity-60');
             document.getElementById('thankYouMessage').classList.add('hidden');
+
+            // ✅ تصفير أقواس النتائج
+            if (document.getElementById('gaugeValue')) document.getElementById('gaugeValue').textContent = '0';
+            if (document.getElementById('gaugeBadge')) document.getElementById('gaugeBadge').textContent = '-';
+            if (document.getElementById('gaugeDesc')) document.getElementById('gaugeDesc').textContent = '-';
+
+            if (document.getElementById('totalPointsValue')) document.getElementById('totalPointsValue').textContent = '0';
+            if (document.getElementById('totalPointsMax')) document.getElementById('totalPointsMax').textContent = '0';
+
+            updateGaugeById('gaugeFg', 0);
+            updateGaugeById('totalGaugeFg', 0);
 
             // السماح بطلب استشارة جديد بعد إعادة الاستبيان
             consultationSent = false;

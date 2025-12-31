@@ -255,14 +255,19 @@
 		  font-size: clamp(16px, 2.6vw, 22px);
 		  color:#fff;
 
+		  /* ✅ نفس التدرّج (مثل القوس) */
+		  background: linear-gradient(90deg, var(--badge1, #2563eb), var(--badge2, #1d4ed8));
+
 		  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
 		}
 
-        .gaugeBadge.is-excellent { background: #4f46e5; } /* ممتاز */
-        .gaugeBadge.is-verygood  { background: #16a34a; } /* جيد جدًا */
-        .gaugeBadge.is-average   { background: #f59e0b; } /* متوسط */
-        .gaugeBadge.is-weak      { background: #ef4444; } /* ضعيف */
-        .gaugeBadge.is-total     { background: #2563eb; } /* الإجمالي */
+        /* Fallback لو ما انرسلت متغيرات */
+        .gaugeBadge.is-excellent { --badge1:#16a34a; --badge2:#22c55e; } /* ممتاز */
+        .gaugeBadge.is-verygood  { --badge1:#22c55e; --badge2:#86efac; } /* جيد جدًا */
+        .gaugeBadge.is-average   { --badge1:#f59e0b; --badge2:#fbbf24; } /* متوسط */
+        .gaugeBadge.is-weak      { --badge1:#dc2626; --badge2:#ef4444; } /* ضعيف */
+        .gaugeBadge.is-total     { --badge1:#2563eb; --badge2:#1d4ed8; } /* الإجمالي */
+/* الإجمالي */
 
         .gaugeDesc {
             font-weight: 900;
@@ -829,8 +834,48 @@
             }
         }
 
+        function mixHex(a, b, t) {
+            function hexToRgb(h) {
+                h = (h || '').replace('#', '').trim();
+                if (h.length === 3) h = h.split('').map(function (ch) { return ch + ch; }).join('');
+                var n = parseInt(h, 16);
+                return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+            }
+            function rgbToHex(r, g, b) {
+                function to(v) { return ('0' + v.toString(16)).slice(-2); }
+                return '#' + to(r) + to(g) + to(b);
+            }
+            var A = hexToRgb(a), B = hexToRgb(b);
+            var r = Math.round(A.r + (B.r - A.r) * t);
+            var g = Math.round(A.g + (B.g - A.g) * t);
+            var bb = Math.round(A.b + (B.b - A.b) * t);
+            return rgbToHex(r, g, bb);
+        }
+
+        function levelGradient(levelWord) {
+            if (levelWord === 'ممتاز') return ['#16a34a', '#22c55e'];
+            if (levelWord === 'جيد جدًا') return ['#22c55e', '#86efac'];
+            if (levelWord === 'متوسط') return ['#f59e0b', '#fbbf24'];
+            return ['#dc2626', '#ef4444']; // ضعيف
+        }
+
+        function setSvgGradient(gradId, c1, c2) {
+            var grad = document.getElementById(gradId);
+            if (!grad) return;
+
+            var stops = grad.querySelectorAll('stop');
+            if (!stops || !stops.length) return;
+
+            var last = stops.length - 1;
+            for (var i = 0; i < stops.length; i++) {
+                var t = (last === 0) ? 1 : (i / last);
+                stops[i].setAttribute('stop-color', mixHex(c1, c2, t));
+            }
+        }
+
         function applyGaugeTheme(levelWord) {
             var badge = document.getElementById('gaugeBadge');
+            var fg = document.getElementById('gaugeFg');
             if (!badge) return;
 
             badge.className = 'gaugeBadge';
@@ -839,7 +884,19 @@
             else if (levelWord === 'جيد جدًا') badge.classList.add('is-verygood');
             else if (levelWord === 'متوسط') badge.classList.add('is-average');
             else badge.classList.add('is-weak');
+
+            // ✅ نفس تدرّج القوس على البادج
+            var colors = levelGradient(levelWord);
+            badge.style.setProperty('--badge1', colors[0]);
+            badge.style.setProperty('--badge2', colors[1]);
+
+            // ✅ غيّر تدرّج القوس حسب التقييم
+            setSvgGradient('gaugeGradLevel', colors[0], colors[1]);
+
+            // ✅ تأكد القوس يستخدم التدرّج (مو لون ثابت)
+            if (fg) fg.style.stroke = 'url(#gaugeGradLevel)';
         }
+
 
         document.addEventListener('DOMContentLoaded', function () {
             const track = document.querySelector('.partners-marquee-track');
@@ -1256,6 +1313,28 @@
             return "#ef4444";
         }
 
+
+        // ✅ ثيم ألوان شارة التقييم داخل الإيميل (EmailJS)
+        // الإيميل ما يشغل JS ولا يعرف CSS من موقعك، فنعطيه الألوان كمتغيرات.
+        function emailLevelBadgeTheme(levelWord){
+            if (levelWord === "ممتاز") {
+                return { solid: "#16a34a", grad: "linear-gradient(90deg,#16a34a,#22c55e)" };
+            }
+            if (levelWord === "جيد جدًا") {
+                return { solid: "#22c55e", grad: "linear-gradient(90deg,#22c55e,#86efac)" };
+            }
+            if (levelWord === "متوسط") {
+                return { solid: "#f59e0b", grad: "linear-gradient(90deg,#f59e0b,#fbbf24)" };
+            }
+            return { solid: "#dc2626", grad: "linear-gradient(90deg,#dc2626,#ef4444)" }; // ضعيف
+        }
+
+        function emailTotalBadgeTheme(){
+            // ثيم الإجمالي (أزرق -> بنفسجي مثل القوس الإجمالي عندك)
+            // solid يستخدم كـ fallback لو العميل ما يدعم التدرّج.
+            return { solid: "#7c3aed", grad: "linear-gradient(90deg,#2563eb,#7c3aed)" };
+        }
+
         // توليد صورة Gauge نصف دائرة (PNG) عشان يشتغل في Gmail/Outlook بدون خراب
         function makeHalfGaugeUrl(percent, fillColor) {
             percent = _clamp(Number(percent) || 0, 0, 100);
@@ -1297,6 +1376,10 @@
 
             var showTotal = !!SHOW_TOTAL_CARD;
 
+            // ✅ ألوان الشارات داخل الإيميل (تتوافق مع ألوان القوس والتقييم)
+            var lvlTheme = emailLevelBadgeTheme(results.levelWord);
+            var totTheme = emailTotalBadgeTheme();
+
             var sendBtns = document.getElementById('sendBtns');
             sendBtns.classList.add('opacity-60');
 
@@ -1317,7 +1400,15 @@
                 level_note: results.levelText,
                 level_emoji: levelEmoji(results.levelWord),
 
-                total_gauge_url: makeHalfGaugeUrl(results.percentage, "#7c3aed"),
+                // ✅ شارة التقييم (لون/تدرّج) داخل قالب EmailJS
+                level_badge_bg: lvlTheme.solid,
+                level_badge_bg_img: lvlTheme.grad,
+
+                // ✅ شارة الإجمالي (لون/تدرّج) داخل قالب EmailJS
+                total_badge_bg: totTheme.solid,
+                total_badge_bg_img: totTheme.grad,
+
+                total_gauge_url: makeHalfGaugeUrl(results.percentage, totTheme.solid),
                 level_gauge_url: makeHalfGaugeUrl(results.percentage, levelColor(results.levelWord))
             };
 

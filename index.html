@@ -812,6 +812,23 @@
             fg.style.strokeDashoffset = String(len - (len * v / 100));
         }
 
+
+        // ✅ إظهار/إخفاء كرت "النتيجة الإجمالية" (تحكم من متغير SHOW_TOTAL_CARD)
+        function applyTotalCardVisibility() {
+            var totalCard = document.getElementById('totalCard');
+            var levelCard = document.getElementById('levelCard');
+            if (!totalCard || !levelCard) return;
+
+            if (SHOW_TOTAL_CARD) {
+                totalCard.style.display = '';
+                levelCard.style.gridColumn = '';
+            } else {
+                totalCard.style.display = 'none';
+                // يخلي كرت التقييم يتمدد بعرض الصف بالكامل على الشاشات الكبيرة
+                levelCard.style.gridColumn = '1 / -1';
+            }
+        }
+
         function applyGaugeTheme(levelWord) {
             var badge = document.getElementById('gaugeBadge');
             if (!badge) return;
@@ -837,6 +854,7 @@
             // تصفير الأقواس
             updateGaugeById('gaugeFg', 0);
             updateGaugeById('totalGaugeFg', 0);
+            applyTotalCardVisibility();
         });
 
         // ===== بيانات الاستبيان =====
@@ -899,6 +917,7 @@
 
         // ✅ تحكم إرسال التقييم للإيميل (من الكود فقط)
         var ENABLE_RESULTS_EMAIL = true; // true = يرسل / false = يعطّل إرسال التقييم للإيميل
+        var SHOW_TOTAL_CARD = false; // true = يظهر كرت "النتيجة الإجمالية" / false = يخفيه
 
         for (var i = 0; i < sections.length; i++) {
             totalItems += sections[i].items.length;
@@ -1176,6 +1195,7 @@
 
             document.getElementById('surveyPage').classList.add('hidden');
             document.getElementById('resultsPage').classList.remove('hidden');
+            applyTotalCardVisibility();
 
             // ✅ تقييم المنشأة (نسبة/100)
             if (document.getElementById('gaugeValue')) document.getElementById('gaugeValue').textContent = results.percentage;
@@ -1275,6 +1295,8 @@
             var results = calculateResults();
             var body = buildSurveyText(results);
 
+            var showTotal = !!SHOW_TOTAL_CARD;
+
             var sendBtns = document.getElementById('sendBtns');
             sendBtns.classList.add('opacity-60');
 
@@ -1287,7 +1309,9 @@
                 size: userInfo.size,
                 message: body,
 
-                total_score: results.totalScore + ' / ' + results.maxScore,
+                total_display: showTotal ? 'inline-block' : 'none',
+
+                total_score: (results.totalScore + ' / ' + results.maxScore),
                 level_score: Math.round(results.percentage) + ' / 100',
                 level_short: results.levelWord,
                 level_note: results.levelText,
@@ -1448,6 +1472,7 @@
 
             updateGaugeById('gaugeFg', 0);
             updateGaugeById('totalGaugeFg', 0);
+            applyTotalCardVisibility();
 
             // السماح بطلب استشارة جديد بعد إعادة الاستبيان
             consultationSent = false;

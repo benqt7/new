@@ -66,22 +66,61 @@
             overflow: hidden;
             position: relative;
             direction: ltr; /* عشان اتجاه الحركة ما يتأثر بـ RTL للصفحة */
+            background: linear-gradient(to bottom, #f9fafb, #ffffff);
+            padding: 2rem 0;
+            border-radius: 1rem;
+        }
+
+        /* تأثير fade متماثل على الجانبين - الدخول والخروج بنفس الطريقة */
+        .partners-marquee::before,
+        .partners-marquee::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 150px; /* مسافة أكبر للـ fade */
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .partners-marquee::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(249, 250, 251, 1) 0%, rgba(249, 250, 251, 0.8) 40%, rgba(249, 250, 251, 0) 100%);
+        }
+
+        .partners-marquee::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(249, 250, 251, 1) 0%, rgba(249, 250, 251, 0.8) 40%, rgba(249, 250, 251, 0) 100%);
         }
 
         .partners-marquee-track {
             display: flex;
-            gap: 1.5rem; /* مسافة بين الشعارات */
+            gap: 3rem; /* مسافة بين الشعارات */
             width: max-content;
-            animation: partners-marquee 30s linear infinite;
+            /* حركة بطيئة ومريحة */
+            animation: partners-marquee 50s linear infinite;
+            will-change: transform; /* تحسين الأداء */
         }
 
         .partners-marquee-track:hover {
             animation-play-state: paused; /* توقف عند الوقوف بالماوس */
         }
 
+        /* الشعارات بألوانها الأصلية بدون تأثيرات */
+        .partners-marquee-track > div {
+            flex-shrink: 0; /* مهم: منع انكماش العناصر */
+            transition: transform 0.3s ease;
+        }
+
+        /* تكبير خفيف عند التحويم فقط */
+        .partners-marquee-track > div:hover {
+            transform: scale(1.1);
+        }
+
+        /* الأنيميشن: حركة بطيئة ومستمرة */
         @keyframes partners-marquee {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0%   { transform: translateX(0); }    /* يبدأ من موضعه - يظهر مباشرة */
+            100% { transform: translateX(-50%); } /* يتحرك نصف المسافة - تكرار سلس */
         }
 
         .form-card > * {
@@ -380,7 +419,15 @@
                 <!-- شريط الشركاء المتحرك -->
                 <div class="partners-marquee mb-4">
                     <div class="partners-marquee-track">
+                        <!-- مسافة فارغة في البداية لجعل الشعارات تبدأ من خارج اليمين -->
+                        <div class="shrink-0" style="width: 50vw;"></div>
 
+                        <!-- شركة هرفي -->
+                        <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
+                            <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/7YBpZHCn/shrkt-hrfy.png')] bg-center bg-contain bg-no-repeat
+                                        cursor-pointer transition-transform duration-200 ease-out hover:scale-110"></div>
+                        </div>
+						
                         <!-- مؤسسة الملك خالد -->
                         <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
                             <div class="w-full h-full rounded-lg bg-[url('https://i.postimg.cc/mrXntJQ8/mwsst-almlk-khald.jpg')] bg-center bg-contain bg-no-repeat
@@ -521,7 +568,7 @@
                     <input type="email" id="email" required
                         class="w-full px-3 py-2.5 sm:px-4 sm:py-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none text-sm sm:text-base">
                     <p id="emailError" class="hidden text-red-600 text-sm mt-1">
-                        الرجاء إدخال بريد إلكتروني صحيح (مثال: name@example.com)
+                        الرجاء إدخال بريد إلكتروني صحيح (مثال: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f19f909c94b19489909c819d94df929e9c">[email&#160;protected]</a>)
                     </p>
                 </div>
 
@@ -771,7 +818,7 @@
 
     </div> <!-- نهاية الـ container -->
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // ===== Toast Functions =====
         var toastTimeout = null;
 
@@ -903,6 +950,11 @@
             if (track) {
                 // نكرر محتوى الشريط مرة ثانية فقط برمجياً
                 track.innerHTML += track.innerHTML;
+                
+                // نبدأ الشريط من اليمين (خارج الشاشة قليلاً)
+                // بعد التكرار نحسب العرض ونبدأ من موضع مناسب
+                const trackWidth = track.offsetWidth;
+                track.style.transform = 'translateX(0)';
             }
 
             // تعبئة الحقول تلقائياً عند فتح الصفحة
@@ -964,6 +1016,15 @@
             var name = document.getElementById('facilityName').value.trim();
             var email = document.getElementById('email').value.trim();
             var phone = document.getElementById('phone').value.trim();
+
+            // Normalize Saudi phone input:
+            // - remove spaces/dashes
+            // - allow +9665XXXXXXXX or 9665XXXXXXXX and convert to 05XXXXXXXX
+            phone = phone.replace(/\s+/g, '').replace(/-/g, '');
+            if (phone.startsWith('+966')) phone = '0' + phone.slice(4);
+            else if (phone.startsWith('966')) phone = '0' + phone.slice(3);
+            phoneInput && (phoneInput.value = phone);
+
             var region = document.getElementById('region').value;
             var size = document.getElementById('facilitySize').value;
 
@@ -998,7 +1059,7 @@
                 hasError = true;
             }
 
-            var phoneRegex = /^05[0-9]{8}$/;
+            var phoneRegex = /^05\d{8}$/;
             if (phone && !phoneRegex.test(phone)) {
                 phoneError.classList.remove('hidden');
                 phoneInput.classList.add('border-red-500');
@@ -1552,9 +1613,10 @@
                 btn.classList.remove('opacity-60', 'cursor-not-allowed');
             }
 
+            // رجوع للأعلى
             window.scrollTo(0, 0);
-            showToast('تم إعادة تعيين الاستبيان 🔄', 'info');
         }
+
     </script>
 </body>
 </html>

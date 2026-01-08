@@ -317,6 +317,73 @@
             margin-top: -6px;
         }
     </style>
+
+<!-- FIX: partners marquee rounded corners + fade overlays respect border-radius -->
+<style>
+/* شريط الشركاء المتحرك */
+.partners-marquee{
+  overflow: hidden;
+  position: relative;
+  direction: ltr;
+  background: linear-gradient(to bottom, #f9fafb, #ffffff);
+  padding: 2rem 0;
+
+  /* ✅ خلي الزوايا واضحة ومتناسقة */
+  border-radius: 1rem;
+  isolation: isolate; /* يمنع تداخل طبقات الغطاء */
+}
+
+/* ✅ لازم الـ fade يحترم نفس الـ rounded */
+.partners-marquee::before,
+.partners-marquee::after{
+  content:'';
+  position:absolute;
+  top:0; bottom:0;
+  width:150px;
+  z-index:2;
+  pointer-events:none;
+
+  /* أهم سطرين */
+  border-radius: inherit;
+}
+
+/* دخلنا الـ rounded لكل جهة */
+.partners-marquee::before{
+  left:0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background: linear-gradient(to right,
+    rgba(249,250,251,1) 0%,
+    rgba(249,250,251,0.8) 40%,
+    rgba(249,250,251,0) 100%);
+}
+
+.partners-marquee::after{
+  right:0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background: linear-gradient(to left,
+    rgba(249,250,251,1) 0%,
+    rgba(249,250,251,0.8) 40%,
+    rgba(249,250,251,0) 100%);
+}
+</style>
+
+<!-- FIX: remove marquee fade + add shadow to partner logos -->
+<style>
+/* 1) إلغاء التدرج (fade) نهائياً */
+.partners-marquee::before,
+.partners-marquee::after{
+  display:none !important;
+  content:none !important;
+}
+
+/* 2) شادو على الشعارات (لأنها background-image داخل div) */
+.partners-marquee-track > div > div{
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.18));
+}
+</style>
+
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
 

@@ -384,6 +384,25 @@
 }
 </style>
 
+
+<style>
+.partners-marquee::before,
+.partners-marquee::after{
+  display:none !important;
+  content:none !important;
+}
+.partners-marquee-track{
+  display:flex;
+  width:max-content;
+  animation: partners-marquee 35s linear infinite;
+  will-change: transform;
+}
+@keyframes partners-marquee{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+</style>
+
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
 
@@ -487,7 +506,7 @@
                 <div class="partners-marquee mb-4">
                     <div class="partners-marquee-track">
                         <!-- مسافة فارغة في البداية لجعل الشعارات تبدأ من خارج اليمين -->
-                        <div class="shrink-0" style="width: 50vw;"></div>
+                        
 
                         <!-- شركة هرفي -->
                         <div class="shrink-0 w-20 h-12 sm:w-24 sm:h-14 flex items-center justify-center">
@@ -1685,5 +1704,21 @@
         }
 
     </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector(".partners-marquee-track");
+  if (!track) return;
+  if (track.dataset.duplicated === "1") return;
+  track.dataset.duplicated = "1";
+  const items = Array.from(track.children);
+  items.forEach(node => {
+    const clone = node.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    track.appendChild(clone);
+  });
+});
+</script>
+
 </body>
 </html>

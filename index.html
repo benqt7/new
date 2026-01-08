@@ -422,10 +422,6 @@
   content:none !important;
 }
 
-/* 2) شادو على الشعارات (لأنها background-image داخل div) */
-.partners-marquee-track > div > div{
-  filter: drop-shadow(0 6px 14px rgba(0,0,0,.18));
-}
 @keyframes tbScrollLeft{
   0%{ transform: translate3d(0,0,0); }
   100%{ transform: translate3d(calc(-1 * var(--marquee-distance)),0,0); }
@@ -458,7 +454,6 @@
   will-change: transform;
   transform: translate3d(0,0,0);
 }
-.partners-marquee-track .shrink-0 > div{filter:drop-shadow(0 6px 14px rgba(0,0,0,.18));}
 @keyframes partners-marquee{
   0%{transform:translateX(-50%);}
   100%{transform:translateX(0);}

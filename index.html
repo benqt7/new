@@ -100,9 +100,19 @@
             /* حركة بطيئة ومريحة */
             animation: partners-marquee 50s linear infinite;
             will-change: transform; /* تحسين الأداء */
-        }
+  transform: translate3d(0,0,0);
+}
 
-        .partners-marquee-track:hover {
+        
+
+@media (prefers-reduced-motion: reduce){
+  .partners-marquee-track{
+    animation: none !important;
+    transform: translate3d(0,0,0) !important;
+  }
+}
+
+.partners-marquee-track:hover {
             animation-play-state: paused; /* توقف عند الوقوف بالماوس */
         }
 
@@ -316,7 +326,17 @@
             text-align: center;
             margin-top: -6px;
         }
-    </style>
+    @keyframes tbScrollLeft{
+  0%{ transform: translate3d(0,0,0); }
+  100%{ transform: translate3d(-50%,0,0); }
+}
+
+  100%{ transform: translateX(0); }
+}
+
+  100%{ transform: translateX(-50%); }
+}
+</style>
 
 <!-- FIX: partners marquee rounded corners + fade overlays respect border-radius -->
 <style>
@@ -367,6 +387,16 @@
     rgba(249,250,251,0.8) 40%,
     rgba(249,250,251,0) 100%);
 }
+@keyframes tbScrollLeft{
+  0%{ transform: translate3d(0,0,0); }
+  100%{ transform: translate3d(-50%,0,0); }
+}
+
+  100%{ transform: translateX(0); }
+}
+
+  100%{ transform: translateX(-50%); }
+}
 </style>
 
 <!-- FIX: remove marquee fade + add shadow to partner logos -->
@@ -382,6 +412,16 @@
 .partners-marquee-track > div > div{
   filter: drop-shadow(0 6px 14px rgba(0,0,0,.18));
 }
+@keyframes tbScrollLeft{
+  0%{ transform: translate3d(0,0,0); }
+  100%{ transform: translate3d(-50%,0,0); }
+}
+
+  100%{ transform: translateX(0); }
+}
+
+  100%{ transform: translateX(-50%); }
+}
 </style>
 
 
@@ -396,11 +436,22 @@
   width:max-content;
   animation: partners-marquee 35s linear infinite;
   will-change: transform;
+  transform: translate3d(0,0,0);
 }
 .partners-marquee-track .shrink-0 > div{filter:drop-shadow(0 6px 14px rgba(0,0,0,.18));}
 @keyframes partners-marquee{
   0%{transform:translateX(-50%);}
   100%{transform:translateX(0);}
+}
+@keyframes tbScrollLeft{
+  0%{ transform: translate3d(0,0,0); }
+  100%{ transform: translate3d(-50%,0,0); }
+}
+
+  100%{ transform: translateX(0); }
+}
+
+  100%{ transform: translateX(-50%); }
 }
 </style>
 

@@ -94,6 +94,7 @@
         }
 
         .partners-marquee-track {
+  --marquee-distance: 0px;
             display: flex;
             gap: 3rem; /* مسافة بين الشعارات */
             width: max-content;
@@ -328,6 +329,9 @@
         }
     @keyframes tbScrollLeft{
   0%{ transform: translate3d(0,0,0); }
+  100%{ transform: translate3d(calc(-1 * var(--marquee-distance)),0,0); }
+}
+
   100%{ transform: translate3d(-50%,0,0); }
 }
 
@@ -389,6 +393,9 @@
 }
 @keyframes tbScrollLeft{
   0%{ transform: translate3d(0,0,0); }
+  100%{ transform: translate3d(calc(-1 * var(--marquee-distance)),0,0); }
+}
+
   100%{ transform: translate3d(-50%,0,0); }
 }
 
@@ -414,6 +421,9 @@
 }
 @keyframes tbScrollLeft{
   0%{ transform: translate3d(0,0,0); }
+  100%{ transform: translate3d(calc(-1 * var(--marquee-distance)),0,0); }
+}
+
   100%{ transform: translate3d(-50%,0,0); }
 }
 
@@ -445,6 +455,9 @@
 }
 @keyframes tbScrollLeft{
   0%{ transform: translate3d(0,0,0); }
+  100%{ transform: translate3d(calc(-1 * var(--marquee-distance)),0,0); }
+}
+
   100%{ transform: translate3d(-50%,0,0); }
 }
 
@@ -1757,20 +1770,57 @@
 
     </script>
 
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".partners-marquee-track");
   if (!track) return;
-  if (track.dataset.duplicated === "1") return;
-  track.dataset.duplicated = "1";
-  const items = Array.from(track.children);
-  items.forEach(node => {
-    const clone = node.cloneNode(true);
-    clone.setAttribute("aria-hidden", "true");
-    track.appendChild(clone);
+
+  // Duplicate once to make a seamless loop
+  if (track.dataset.duplicated !== "1") {
+    track.dataset.duplicated = "1";
+    const items = Array.from(track.children);
+    items.forEach(node => {
+      const clone = node.cloneNode(true);
+      clone.setAttribute("aria-hidden", "true");
+      track.appendChild(clone);
+    });
+  }
+
+  const setDistance = () => {
+    // distance = width of the original set (half after duplication)
+    const dist = Math.floor(track.scrollWidth / 2);
+    track.style.setProperty("--marquee-distance", dist + "px");
+    // Ensure starts visible
+    track.style.transform = "translate3d(0,0,0)";
+  };
+
+  // Wait for images to load (important for iOS Safari)
+  const imgs = Array.from(track.querySelectorAll("img"));
+  if (imgs.length) {
+    let pending = imgs.length;
+    const done = () => { pending--; if (pending <= 0) setDistance(); };
+    imgs.forEach(img => {
+      if (img.complete) done();
+      else {
+        img.addEventListener("load", done, { once: true });
+        img.addEventListener("error", done, { once: true });
+      }
+    });
+    // Fallback timeout
+    setTimeout(setDistance, 600);
+  } else {
+    // Background-image items: just wait a tick
+    requestAnimationFrame(() => requestAnimationFrame(setDistance));
+  }
+
+  // Recompute on resize/orientation
+  window.addEventListener("resize", () => {
+    setTimeout(setDistance, 150);
   });
 });
 </script>
+
 
 </body>
 </html>

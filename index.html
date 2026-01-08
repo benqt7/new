@@ -102,6 +102,7 @@
             animation: partners-marquee 50s linear infinite;
             will-change: transform; /* تحسين الأداء */
   transform: translate3d(0,0,0);
+  animation-play-state: paused;
 }
 
         
@@ -340,6 +341,9 @@
 
   100%{ transform: translateX(-50%); }
 }
+
+.partners-marquee-track.is-running{ animation-play-state: running; }
+
 </style>
 
 <!-- FIX: partners marquee rounded corners + fade overlays respect border-radius -->
@@ -404,6 +408,9 @@
 
   100%{ transform: translateX(-50%); }
 }
+
+.partners-marquee-track.is-running{ animation-play-state: running; }
+
 </style>
 
 <!-- FIX: remove marquee fade + add shadow to partner logos -->
@@ -432,6 +439,9 @@
 
   100%{ transform: translateX(-50%); }
 }
+
+.partners-marquee-track.is-running{ animation-play-state: running; }
+
 </style>
 
 
@@ -466,6 +476,9 @@
 
   100%{ transform: translateX(-50%); }
 }
+
+.partners-marquee-track.is-running{ animation-play-state: running; }
+
 </style>
 
 </head>
@@ -1776,7 +1789,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector(".partners-marquee-track");
   if (!track) return;
 
-  // Duplicate once to make a seamless loop
+  
+  track.classList.remove('is-running');
+// Duplicate once to make a seamless loop
   if (track.dataset.duplicated !== "1") {
     track.dataset.duplicated = "1";
     const items = Array.from(track.children);
@@ -1788,12 +1803,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const setDistance = () => {
-    // distance = width of the original set (half after duplication)
+    
+    track.classList.remove('is-running');
+// distance = width of the original set (half after duplication)
     const dist = Math.floor(track.scrollWidth / 2);
     track.style.setProperty("--marquee-distance", dist + "px");
     // Ensure starts visible
     track.style.transform = "translate3d(0,0,0)";
-  };
+  
+    // Start animation only after distance is ready
+    requestAnimationFrame(() => track.classList.add('is-running'));
+};
 
   // Wait for images to load (important for iOS Safari)
   const imgs = Array.from(track.querySelectorAll("img"));
